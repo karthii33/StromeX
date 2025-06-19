@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Our Solutions - StromeX IT Solutions</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* --- General Styling & Variables from the main template --- */
+        :root {
+            --primary-color: #007bff; /* A vibrant blue */
+            --secondary-color: #6f42c1; /* A rich purple */
+            --dark-color: #212529; /* Deep charcoal */
+            --light-color: #f8f9fa; /* Off-white for background */
+            --body-text-color: #495057; /* Muted dark gray */
+            --card-bg: #ffffff; /* White for cards/forms */
+            --border-color: #e9ecef; /* Light gray for borders */
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --section-bg-color: #e0f7fa; /* Light blue for sections */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--light-color);
+            color: var(--body-text-color);
+            line-height: 1.6; /* Improved readability */
+        }
+
+        /* --- Header & Navigation (from main template) --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 3rem; /* Slightly more padding */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
+            backdrop-filter: blur(12px); /* Stronger blur effect */
+            border-bottom: 1px solid var(--border-color); /* Themed border */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03); /* Subtle header shadow */
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.9rem; /* Slightly larger */
+            font-weight: 700;
+            color: var(--dark-color);
+            text-decoration: none;
+            letter-spacing: -0.5px; /* Tighter spacing for logo */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.2rem; /* Slightly more space between links */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 7px; /* More space for underline */
+            transition: color 0.3s ease-in-out;
+        }
+
+        /* Underline effect for nav links */
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px; /* Thicker underline */
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease-in-out;
+            border-radius: 2px; /* Rounded ends for underline */
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Style for the active Solutions link */
+        nav ul li a.active {
+            color: var(--primary-color);
+        }
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* --- Animated Gradient Hero Section --- */
+        .hero {
+            color: #fff;
+            text-align: center;
+            padding: 7rem 2rem;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px; /* Wider for descriptive text */
+            margin: 1rem auto 0 auto;
+            font-weight: 300;
+        }
+
+        /* --- Solutions Section --- */
+        .solutions-section {
+            padding: 5rem 2rem;
+            background-color: var(--light-color); /* Consistent background */
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--dark-color); /* Dark color for text */
+            text-align: center;
+            margin-bottom: 3.5rem; /* More space below title */
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            max-width: 750px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: var(--body-text-color); /* Consistent text color */
+        }
+
+        .solution-card {
+            background-color: var(--card-bg);
+            padding: 2.5rem; /* Consistent padding with blog/product cards */
+            border-radius: 18px; /* Consistent roundedness */
+            box-shadow: 0 10px 30px var(--shadow-light); /* Consistent shadow */
+            height: 100%; /* Ensures cards in a row have same height */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to top */
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            opacity: 0; /* For animation on scroll */
+            transform: translateY(30px); /* For animation on scroll */
+        }
+
+        .solution-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-8px); /* More noticeable lift on hover */
+            box-shadow: 0 15px 40px var(--shadow-medium); /* Deeper shadow on hover */
+        }
+
+        .solution-card img {
+            max-width: 70px;
+            height: auto;
+            margin-bottom: 1.5rem; /* More space below icon */
+            /* Add filter for consistent color if icons are not monochrome */
+            filter: drop-shadow(0 0 5px rgba(0, 123, 255, 0.3)); /* Subtle glow matching primary color */
+            transition: filter 0.3s ease;
+        }
+
+        .solution-card:hover img {
+            filter: drop-shadow(0 0 8px rgba(111, 66, 193, 0.4)); /* Secondary color glow on hover */
+        }
+
+        .solution-card h5 {
+            font-size: 1.8rem; /* Larger solution title */
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-color); /* Consistent title color */
+        }
+
+        .solution-card p {
+            font-size: 0.95rem; /* Slightly larger paragraph text */
+            color: var(--body-text-color);
+            flex-grow: 1; /* Allow paragraph to take available space */
+            margin-bottom: 0; /* Remove default bottom margin */
+        }
+
+        /* --- Call to Action Section --- */
+        .call-to-action-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background-color: var(--section-bg-color); /* Consistent background with contact form section */
+        }
+
+        .call-to-action-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .call-to-action-section p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto; /* Center and add more space below */
+            color: var(--body-text-color);
+        }
+
+        .call-to-action-section .btn-primary {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 1rem 2.5rem; /* Generous padding */
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .call-to-action-section .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        /* --- Footer (from main template) --- */
+        footer {
+            background-color: var(--dark-color);
+            color: #fff;
+            padding: 3rem 3rem; /* More generous padding */
+            text-align: left;
+            border-top: 1px solid rgba(255,255,255,0.05); /* Subtle top border */
+        }
+
+        footer h5 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem; /* More space below headings */
+            font-size: 1.2rem;
+        }
+
+        footer p {
+            font-size: 0.95rem; /* Slightly larger text */
+            line-height: 1.7;
+            margin-bottom: 0.7rem;
+            color: rgba(255,255,255,0.8); /* Softer white for paragraph text */
+        }
+
+        footer strong {
+            color: var(--light-color);
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.9); /* Slightly brighter link color */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            header {
+                padding: 1rem 2rem;
+            }
+            nav ul {
+                gap: 1.5rem;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .solutions-section {
+                padding: 4rem 1.5rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 3rem;
+            }
+            .solution-card {
+                padding: 2rem;
+            }
+            .solution-card img {
+                max-width: 60px;
+            }
+            .solution-card h5 {
+                font-size: 1.5rem;
+            }
+            .solution-card p {
+                font-size: 0.9rem;
+            }
+            .call-to-action-section {
+                padding: 4rem 1.5rem;
+            }
+            .call-to-action-section h2 {
+                font-size: 2rem;
+            }
+            .call-to-action-section p {
+                font-size: 1rem;
+            }
+            footer {
+                padding: 2.5rem 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem 1.5rem;
+                text-align: center;
+            }
+            .logo {
+                margin-bottom: 1rem;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem 1.5rem; /* Smaller gap for wrapped items */
+                margin-top: 0.5rem;
+            }
+            .hero {
+                padding: 5rem 1.5rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .solutions-section {
+                padding: 3rem 1rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+            .solution-card {
+                margin-bottom: 1.5rem; /* Add space between stacked cards */
+                padding: 2rem 1.5rem;
+            }
+            .solution-card img {
+                max-width: 50px;
+            }
+            .call-to-action-section {
+                padding: 3rem 1rem;
+            }
+            .call-to-action-section h2 {
+                font-size: 1.8rem;
+            }
+            .call-to-action-section p {
+                font-size: 0.9rem;
+            }
+            .call-to-action-section .btn-primary {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+            footer {
+                padding: 2rem 1.5rem;
+            }
+            footer .col-md-6 {
+                margin-bottom: 1rem; /* Space between footer columns */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 0.8rem 1rem;
+            }
+            nav ul {
+                gap: 0.5rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 0.85rem;
+            }
+            .solution-card {
+                padding: 1.5rem 1rem;
+            }
+            .solution-card img {
+                max-width: 40px;
+            }
+            .solution-card h5 {
+                font-size: 1.3rem;
+            }
+            footer {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo">StromeX Tech</a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/products">Products</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="#" class="active">Solutions</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Our Core Solutions</h1>
+            <p class="lead">Empowering innovation with cutting-edge IT solutions tailored for modern business challenges.</p>
+        </section>
+
+        <section class="solutions-section">
+            <h2 class="section-title">Comprehensive IT Services</h2>
+            <p class="section-subtitle">We deliver end-to-end solutions that drive efficiency, enhance security, and foster growth for your enterprise.</p>
+
+            <div class="container">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <a href="/end-user-computing" class="text-decoration-none">
+                            <div class="solution-card">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png" alt="End-User Computing Icon">
+                                <h5>End-User Computing</h5>
+                                <p>Empowering users with secure desktops, VDI, and endpoint management for enhanced productivity and mobility across your organization.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <a href="/audio-video-solutions" class="text-decoration-none">
+                            <div class="solution-card">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2922/2922688.png" alt="Audio & Video Solution Icon">
+                                <h5>Audio & Video Solutions</h5>
+                                <p>Professional AV setups for seamless meetings, engaging digital signage, and smart collaboration experiences in any environment.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <a href="/data-center-infrastructure" class="text-decoration-none">
+                            <div class="solution-card">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3208/3208720.png" alt="Data Center Infrastructure Icon">
+                                <h5>Data Center Infrastructure</h5>
+                                <p>Expert design and deployment of high-performance data centers, optimizing power, cooling, and rack solutions for reliability.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <a href="/software-saas-applications" class="text-decoration-none">
+                            <div class="solution-card">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1048/1048953.png" alt="Software & SaaS Applications Icon">
+                                <h5>Software & SaaS Applications</h5>
+                                <p>Enterprise-grade software and SaaS applications to streamline operations, enhance communication, and bolster security.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <a href="/cloud-colocation-services" class="text-decoration-none">
+                            <div class="solution-card">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2316/2316677.png" alt="Cloud & Co-Location Services Icon">
+                                <h5>Cloud & Co-Location Services</h5>
+                                <p>Flexible cloud hosting, hybrid infrastructure solutions, and secure colocation services for unparalleled business agility and scalability.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <a href="/it-consulting-managed-services" class="text-decoration-none">
+                            <div class="solution-card">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1907/1907555.png" alt="IT Consulting & Managed Services Icon">
+                                <h5>IT Consulting & Managed Services</h5>
+                                <p>Strategic IT guidance, proactive monitoring, and full-service support to help your tech stack evolve efficiently and securely.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="/contact" class="btn btn-primary">Talk to Our Experts</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-md-6 mb-3">
+                    <h5>Contact Us</h5>
+                    <p><strong>CORPORATE OFFICE:</strong><br>
+                        Flat no 201 Krishna Nagar, Behind Dronam Raju Kalyana Mandapam Sri Harshita Nylayam Visakhapatnam Rural Madhurawada 530048, Andhrapradesh
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5>Reach Out</h5>
+                    <p><strong>Phone:</strong> +91-79960 23456<br>
+                    <strong>Email:</strong> <a href="mailto:Hello@stromex.in" class="text-white">Hello@stromex.in</a></p>
+                    <p>&copy; 2025 StromeX IT Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // --- Animate solution cards on scroll ---
+        const solutionCards = document.querySelectorAll('.solution-card');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Optional: If you want the animation to play only once, uncomment the line below:
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        solutionCards.forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

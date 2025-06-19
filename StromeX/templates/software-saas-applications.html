@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Software & SaaS Applications | StromeX IT Solutions</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- General Styling & Variables from the main template --- */
+        :root {
+            --primary-color: #007bff; /* A vibrant blue */
+            --secondary-color: #6f42c1; /* A rich purple */
+            --dark-color: #212529; /* Deep charcoal */
+            --light-color: #f8f9fa; /* Off-white for background */
+            --body-text-color: #495057; /* Muted dark gray */
+            --card-bg: #ffffff; /* White for cards/forms */
+            --border-color: #e9ecef; /* Light gray for borders */
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --section-bg-color: #e0f7fa; /* Light blue for sections */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--light-color);
+            color: var(--body-text-color);
+            line-height: 1.6; /* Improved readability */
+        }
+
+        /* --- Header & Navigation (from main template) --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 3rem; /* Slightly more padding */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
+            backdrop-filter: blur(12px); /* Stronger blur effect */
+            border-bottom: 1px solid var(--border-color); /* Themed border */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03); /* Subtle header shadow */
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.9rem; /* Slightly larger */
+            font-weight: 700;
+            color: var(--dark-color);
+            text-decoration: none;
+            letter-spacing: -0.5px; /* Tighter spacing for logo */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.2rem; /* Slightly more space between links */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 7px; /* More space for underline */
+            transition: color 0.3s ease-in-out;
+        }
+
+        /* Underline effect for nav links */
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px; /* Thicker underline */
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease-in-out;
+            border-radius: 2px; /* Rounded ends for underline */
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Style for the active Solutions link */
+        nav ul li a.active {
+            color: var(--primary-color);
+        }
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section (specific to this page, adapted for consistency) --- */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                        url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: #fff;
+            padding: 7rem 2rem; /* Consistent with main solutions hero */
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 3.5rem; /* Consistent with main solutions hero */
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+        }
+        .hero-section p {
+            font-size: 1.3rem; /* Consistent with main solutions hero */
+            max-width: 700px;
+            margin: 1rem auto 0 auto;
+            font-weight: 300;
+        }
+
+        /* --- Section Styling (General) --- */
+        .section {
+            padding: 5rem 2rem; /* Consistent section padding */
+            background-color: var(--light-color);
+        }
+        .section-title { /* Generic title style, similar to section-title in solutions page */
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .section-subtitle { /* Generic subtitle style, similar to section-subtitle in solutions page */
+            font-size: 1.2rem;
+            max-width: 750px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: var(--body-text-color);
+        }
+
+        /* --- Software & SaaS Applications Intro Section --- */
+        .saas-intro .row {
+            align-items: center;
+            padding: 2rem 0; /* Add some padding within the intro row */
+        }
+        .saas-intro img {
+            border-radius: 12px; /* Consistent roundedness */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* Subtle shadow for image */
+        }
+        .saas-intro h3 {
+            font-size: 2.5rem; /* Slightly smaller than main section title, but still prominent */
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            text-align: left; /* Align text to left */
+        }
+        .saas-intro p {
+            font-size: 1.05rem;
+            color: var(--body-text-color);
+            margin-bottom: 1rem;
+            text-align: left; /* Align text to left */
+        }
+
+        /* --- SaaS Solution Offerings Section --- */
+        .saas-offerings-section .card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--card-bg);
+            height: 100%; /* Ensure cards in a row have same height */
+        }
+        .saas-offerings-section .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 28px var(--shadow-medium);
+        }
+        .saas-offerings-section .card-img-top {
+            height: 120px; /* Standardized height for card images */
+            object-fit: contain;
+            padding: 1.5rem; /* Padding around image */
+            background-color: #f0f8ff; /* Light background for logos */
+            border-bottom: 1px solid var(--border-color);
+        }
+        .saas-offerings-section .card-body {
+            padding: 1.8rem;
+        }
+        .saas-offerings-section .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.8rem;
+        }
+        .saas-offerings-section .card-body p {
+            font-size: 0.95rem;
+            color: var(--body-text-color);
+            margin-bottom: 0.5rem;
+        }
+        .saas-offerings-section .card-body p strong {
+            color: var(--dark-color);
+        }
+
+
+        /* --- Partnerships Section --- */
+        .partners-section {
+            padding: 5rem 2rem;
+            background-color: var(--section-bg-color); /* Use a themed background */
+        }
+        .partners-section h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .partners-section img {
+            max-height: 70px; /* Slightly larger for impact */
+            width: auto;
+            margin: 20px;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .partners-section img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* --- Call to Action Section (Consistent with Solutions page) --- */
+        .call-to-action-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background-color: var(--light-color); /* Consistent background with sections */
+        }
+
+        .call-to-action-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .call-to-action-section p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto;
+            color: var(--body-text-color);
+        }
+
+        .call-to-action-section .btn-primary {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .call-to-action-section .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        /* --- Footer (Consistent with Solutions page) --- */
+        footer {
+            background-color: var(--dark-color);
+            color: #fff;
+            padding: 3rem 3rem;
+            text-align: left;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer h5 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 0.7rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        footer strong {
+            color: var(--light-color);
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            header { padding: 1rem 2rem; }
+            nav ul { gap: 1.5rem; }
+            .hero-section h1 { font-size: 3rem; }
+            .hero-section p { font-size: 1.2rem; }
+            .section { padding: 4rem 1.5rem; }
+            .section-title, .partners-section h2 { font-size: 2.2rem; margin-bottom: 3rem; }
+            .saas-intro h3 { font-size: 2rem; }
+            .saas-intro p { font-size: 1rem; }
+            .partners-section img { max-height: 60px; margin: 15px; }
+            .call-to-action-section { padding: 4rem 1.5rem; }
+            .call-to-action-section h2 { font-size: 2rem; }
+            .call-to-action-section p { font-size: 1rem; }
+            .call-to-action-section .btn-primary { padding: 0.8rem 2rem; font-size: 1rem; }
+            footer { padding: 2.5rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; padding: 1rem 1.5rem; text-align: center; }
+            .logo { margin-bottom: 1rem; }
+            nav ul { flex-wrap: wrap; justify-content: center; gap: 0.8rem 1.5rem; margin-top: 0.5rem; }
+            .hero-section { padding: 5rem 1.5rem; }
+            .hero-section h1 { font-size: 2.2rem; }
+            .hero-section p { font-size: 1rem; }
+            .section { padding: 3rem 1rem; }
+            .section-title, .partners-section h2 { font-size: 1.8rem; margin-bottom: 2rem; }
+            .saas-intro .row { flex-direction: column; } /* Stack image and text */
+            .saas-intro .col-md-5, .saas-intro .col-md-7 { width: 100%; text-align: center; }
+            .saas-intro img { margin-bottom: 2rem; }
+            .saas-intro h3, .saas-intro p { text-align: center; }
+            .partners-section img { max-height: 50px; margin: 10px; }
+            .call-to-action-section { padding: 3rem 1rem; }
+            .call-to-action-section h2 { font-size: 1.8rem; }
+            .call-to-action-section p { font-size: 0.9rem; }
+            .call-to-action-section .btn-primary { padding: 0.8rem 2rem; font-size: 1rem; }
+            footer { padding: 2rem 1.5rem; }
+            footer .col-md-6 { margin-bottom: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            header { padding: 0.8rem 1rem; }
+            nav ul { gap: 0.5rem; }
+            .hero-section h1 { font-size: 1.8rem; }
+            .hero-section p { font-size: 0.85rem; }
+            .saas-offerings-section .card-title { font-size: 1.25rem; }
+            .saas-offerings-section .card-body p { font-size: 0.8rem; }
+            .partners-section img { max-height: 40px; margin: 8px; }
+            footer { padding: 1.5rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo">StromeX Tech</a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</li>
+                <li><a href="/solution" class="active">Solutions</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>Software & SaaS Applications</h1>
+            <p>Enterprise-grade software and SaaS apps to streamline operations, communication, and security.</p>
+        </div>
+    </section>
+
+    <section class="section py-5 bg-white saas-intro">
+        <div class="container">
+            <h2 class="section-title">Comprehensive Software & SaaS Solutions</h2>
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
+                    <img src="https://static.wixstatic.com/media/11062b_d4b001695a67432f84fad8c7875bf03e~mv2.jpeg/v1/fill/w_751,h_362,al_t,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_d4b001695a67432f84fad8c7875bf03e~mv2.jpeg" alt="SaaS Applications" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-7 col-md-6">
+                    <p class="lead">
+                        StromeX, with the aim of providing **end-to-end IT solutions** for our customers, has strategically partnered with the industry's leading software and SaaS players offering business-critical tools.
+                    </p>
+                    <p>
+                        Our resources are **certified with the skill sets** required to successfully implement the solutions with minimal business impact and to drive the best value on your IT investments.
+                    </p>
+                    <p>
+                        The solutions offered by StromeX span **collaboration and creative tools, business ERP systems, back-office automation, and device management solutions**.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section py-5 bg-light saas-offerings-section">
+        <div class="container">
+            <h2 class="section-title">Our SaaS Solution Offerings</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_7a6757404b904248872cf2d5fd55517e~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/zoho-final.png" class="card-img-top" alt="Zoho Logo">
+                        <div class="card-body">
+                            <h5 class="card-title">Zoho: Business ERP</h5>
+                            <p><strong>OEM:</strong> Zoho</p>
+                            <p class="text-muted">
+                                <strong>Value-Add:</strong> StromeX offers support to find suitable Zoho ERP solutions through detailed requirement analysis, post-sales application customization, configuration support, and end-user training.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_6db5c8e46e1d49ffa8305e60434cddeb~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/83947e65-9db4-4823-b253-681d030e7b8c%20(1).png" class="card-img-top" alt="Sapphire IMS Logo">
+                        <div class="card-body">
+                            <h5 class="card-title">Sapphire IMS: Digital Back Office</h5>
+                            <p><strong>OEM:</strong> Sapphire IMS</p>
+                            <p class="text-muted">
+                                <strong>Value-Add:</strong> We provide customized solutions for IT asset and services management and assist with full-scale post-sales implementation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_826af69e5a6d4c85aabb5667bede6d29~mv2.png/v1/crop/x_0,y_52,w_1200,h_1096/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/476009.png" class="card-img-top" alt="Adobe Logo">
+                        <div class="card-body">
+                            <h5 class="card-title">Adobe: Creative Software</h5>
+                            <p><strong>OEM:</strong> Adobe</p>
+                            <p class="text-muted">
+                                <strong>Value-Add:</strong> Complete range of Adobe subscriptions, including Creative & Design, PDF & E-signature tools, plus deployment support for license roll-out.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_dc94ebff0cb74c888513d1f4565a76ea~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MSF-Test.png" class="card-img-top" alt="Microsoft Logo">
+                        <div class="card-body">
+                            <h5 class="card-title">Microsoft: Apps & 365 Business Plans</h5>
+                            <p><strong>OEM:</strong> Microsoft</p>
+                            <p class="text-muted">
+                                <strong>Value-Add:</strong> Full range of Microsoft Apps & 365 Business plans with expert support for configuration, implementation, and migration.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_6809a9c34c1644278e697a1ed4e79111~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MDM-test.png" class="card-img-top" alt="Jamf & Scalefusion Logos">
+                        <div class="card-body">
+                            <h5 class="card-title">MDM: Endpoint Management</h5>
+                            <p><strong>OEMs:</strong> Jamf & Scalefusion</p>
+                            <p class="text-muted">
+                                <strong>Value-Add:</strong> End-point security and policy management across Apple, Android, and Windows platforms with full deployment support.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_8926e97a76ae4d59bd7e55d9650eab8f~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Zoom-meeting.png" class="card-img-top" alt="Zoom Logo">
+                        <div class="card-body">
+                            <h5 class="card-title">Zoom: Video Conferencing</h5>
+                            <p><strong>OEM:</strong> Zoom</p>
+                            <p class="text-muted">
+                                <strong>Value-Add:</strong> Comprehensive Zoom offerings under Zoom One, Events, Webinars, and Rooms, with seamless license deployment support by StromeX.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section partners-section">
+        <div class="container">
+            <h2 class="section-title">Our Software & SaaS Partners</h2>
+            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center align-items-center text-center">
+                <div class="col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Zoho_logo.svg" class="img-fluid" alt="Zoho">
+                </div>
+                <div class="col">
+                    <img src="https://www.sapphireims.com/wp-content/themes/sapphireims/images/logo.png" class="img-fluid" alt="Sapphire IMS">
+                </div>
+                <div class="col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Adobe_logo.svg" class="img-fluid" alt="Adobe">
+                </div>
+                <div class="col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" class="img-fluid" alt="Microsoft">
+                </div>
+                <div class="col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Jamf_Logo.svg" class="img-fluid" alt="Jamf">
+                </div>
+                <div class="col">
+                    <img src="https://www.scalefusion.com/images/scalefusion-logo.svg" class="img-fluid" alt="Scalefusion">
+                </div>
+                <div class="col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Zoom_Video_Communications_Logo.svg" class="img-fluid" alt="Zoom">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section call-to-action-section">
+        <div class="container">
+            <h2>Ready to Elevate Your Business with Powerful Software?</h2>
+            <p>Contact our experts to discover how our tailored software and SaaS solutions can transform your operations.</p>
+            <a href="/contact" class="btn btn-primary">Get in Touch</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-md-6 mb-3">
+                    <h5>Contact Us</h5>
+                    <p><strong>CORPORATE OFFICE:</strong><br>
+                        Flat no 201 Krishna Nagar, Behind Dronam Raju Kalyana Mandapam Sri Harshita Nylayam Visakhapatnam Rural Madhurawada 530048, Andhrapradesh
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5>Reach Out</h5>
+                    <p><strong>Phone:</strong> +91-79960 23456<br>
+                    <strong>Email:</strong> <a href="mailto:Hello@stromex.in" class="text-white">Hello@stromex.in</a></p>
+                    <p>&copy; 2025 StromeX IT Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

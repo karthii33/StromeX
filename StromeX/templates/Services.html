@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stromex Tech - Your Technology Partner</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- General Styling & Variables --- */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6f42c1;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+            --body-text-color: #495057;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--light-color);
+            color: var(--body-text-color);
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            text-decoration: none; /* ADDED: Removes underline from the link */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        /* Cool underline effect on hover */
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Main Content --- */
+        main {
+            width: 100%;
+        }
+
+        /* --- Animated Gradient Hero Section --- */
+        .hero {
+            color: #fff;
+            text-align: center;
+            padding: 8rem 2rem;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #fff;
+            color: var(--dark-color);
+        }
+
+        /* --- Services Section --- */
+        .services-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background-color: #fff;
+        }
+        
+        .services-section h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--dark-color);
+        }
+
+        .service-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            width: 320px;
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        .card p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .card a:hover {
+            color: var(--secondary-color);
+        }
+
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark-color);
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">Stromex Tech</a>
+        <nav>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="/products">Products</a></li>
+                
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Innovative Technology Solutions</h1>
+            <p>Driving your business forward with cutting-edge, scalable, and secure technology services.</p>
+            <a href="#services" class="cta-button">Explore Our Services</a>
+        </section>
+
+        <section id="services" class="services-section">
+            <h2>Our Core Services</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <div class="icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Network Infrastructure</h3>
+                    <p>High-speed LAN/WAN, secure wireless access, and scalable architectures for 24/7 connectivity.</p>
+                    <a href="#">Learn More &rarr;</a>
+                </div>
+
+                <div class="card">
+                    <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h3>Cloud Migration</h3>
+                    <p>Seamless transition to AWS, Azure, or GCP with full lifecycle support, security and cost optimization.</p>
+                    <a href="#">Learn More &rarr;</a>
+                </div>
+
+                <div class="card">
+                    <div class="icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Cybersecurity Services</h3>
+                    <p>Firewall setups, penetration testing, ransomware protection, and IAM solutions for full protection.</p>
+                    <a href="#">Learn More &rarr;</a>
+                </div>
+
+                <div class="card">
+                    <div class="icon"><i class="fas fa-server"></i></div>
+                    <h3>Server & Storage</h3>
+                    <p>Next-gen server setups, SAN/NAS systems, and scalable hybrid storage for fast, secure data access.</p>
+                    <a href="#">Learn More &rarr;</a>
+                </div>
+
+                <div class="card">
+                    <div class="icon"><i class="fas fa-headset"></i></div>
+                    <h3>Managed IT Services</h3>
+                    <p>Proactive monitoring, help desk support, and SLA-driven services to maximize IT efficiency.</p>
+                    <a href="#">Learn More &rarr;</a>
+                </div>
+
+                <div class="card">
+                    <div class="icon"><i class="fas fa-database"></i></div>
+                    <h3>Disaster Recovery</h3>
+                    <p>Robust backup strategies, real-time replication, and automatic failover to ensure business continuity.</p>
+                    <a href="#">Learn More &rarr;</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Stromex Tech. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- Smooth scrolling for navigation links ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                // Check if the link is for the top of the page or an element
+                if (targetId === '#') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- Animate cards on scroll ---
+        const cards = document.querySelectorAll('.card');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, index * 100);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        cards.forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

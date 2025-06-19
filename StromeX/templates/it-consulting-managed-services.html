@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>IT Consulting & Managed Services | StromeX IT Solutions</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- General Styling & Variables from the main template --- */
+        :root {
+            --primary-color: #007bff; /* A vibrant blue */
+            --secondary-color: #6f42c1; /* A rich purple */
+            --dark-color: #212529; /* Deep charcoal */
+            --light-color: #f8f9fa; /* Off-white for background */
+            --body-text-color: #495057; /* Muted dark gray */
+            --card-bg: #ffffff; /* White for cards/forms */
+            --border-color: #e9ecef; /* Light gray for borders */
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --section-bg-color: #e0f7fa; /* Light blue for sections */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--light-color);
+            color: var(--body-text-color);
+            line-height: 1.6; /* Improved readability */
+        }
+
+        /* --- Header & Navigation (from main template) --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 3rem; /* Slightly more padding */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
+            backdrop-filter: blur(12px); /* Stronger blur effect */
+            border-bottom: 1px solid var(--border-color); /* Themed border */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03); /* Subtle header shadow */
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.9rem; /* Slightly larger */
+            font-weight: 700;
+            color: var(--dark-color);
+            text-decoration: none;
+            letter-spacing: -0.5px; /* Tighter spacing for logo */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.2rem; /* Slightly more space between links */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 7px; /* More space for underline */
+            transition: color 0.3s ease-in-out;
+        }
+
+        /* Underline effect for nav links */
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px; /* Thicker underline */
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease-in-out;
+            border-radius: 2px; /* Rounded ends for underline */
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Style for the active Solutions link */
+        nav ul li a.active {
+            color: var(--primary-color);
+        }
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section (specific to this page, adapted for consistency) --- */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                        url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: #fff;
+            padding: 7rem 2rem; /* Consistent with main solutions hero */
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 3.5rem; /* Consistent with main solutions hero */
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+        }
+        .hero-section p {
+            font-size: 1.3rem; /* Consistent with main solutions hero */
+            max-width: 700px;
+            margin: 1rem auto 0 auto;
+            font-weight: 300;
+        }
+
+        /* --- Section Styling (General) --- */
+        .section {
+            padding: 5rem 2rem; /* Consistent section padding */
+            background-color: var(--light-color);
+        }
+        .section-title { /* Generic title style, similar to section-title in solutions page */
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .section-subtitle { /* Generic subtitle style, similar to section-subtitle in solutions page */
+            font-size: 1.2rem;
+            max-width: 750px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: var(--body-text-color);
+        }
+
+        /* --- Intro Section (adapted from SaaS Intro) --- */
+        .intro-section .row {
+            align-items: center;
+            padding: 2rem 0;
+        }
+        .intro-section img {
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .intro-section h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .intro-section p {
+            font-size: 1.05rem;
+            color: var(--body-text-color);
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .intro-section ul {
+            list-style: disc; /* Use discs for list items */
+            padding-left: 20px; /* Indent list */
+            color: var(--body-text-color);
+            font-size: 1.05rem;
+        }
+        .intro-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+
+        /* --- Managed Services Offerings Section (adapted from SaaS Offerings) --- */
+        .service-offerings-section .card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--card-bg);
+            height: 100%;
+        }
+        .service-offerings-section .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 28px var(--shadow-medium);
+        }
+        .service-offerings-section .card-img-top {
+            height: 180px; /* Adjusted height for these images */
+            object-fit: contain;
+            padding: 1.5rem;
+            background-color: #f0f8ff;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .service-offerings-section .card-body {
+            padding: 1.8rem;
+        }
+        .service-offerings-section .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.8rem;
+        }
+        .service-offerings-section .card-body p {
+            font-size: 0.95rem;
+            color: var(--body-text-color);
+            margin-bottom: 0.5rem;
+        }
+        .service-offerings-section .card-body p strong {
+            color: var(--dark-color);
+        }
+
+        /* --- Partnerships Section --- */
+        .partners-section {
+            padding: 5rem 2rem;
+            background-color: var(--section-bg-color);
+        }
+        .partners-section h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .partners-section img {
+            max-height: 70px;
+            width: auto;
+            margin: 20px;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .partners-section img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* --- Call to Action Section (Consistent with Solutions page) --- */
+        .call-to-action-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background-color: var(--light-color);
+        }
+
+        .call-to-action-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .call-to-action-section p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto;
+            color: var(--body-text-color);
+        }
+
+        .call-to-action-section .btn-primary {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .call-to-action-section .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        /* --- Footer (Consistent with Solutions page) --- */
+        footer {
+            background-color: var(--dark-color);
+            color: #fff;
+            padding: 3rem 3rem;
+            text-align: left;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer h5 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 0.7rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        footer strong {
+            color: var(--light-color);
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            header { padding: 1rem 2rem; }
+            nav ul { gap: 1.5rem; }
+            .hero-section h1 { font-size: 3rem; }
+            .hero-section p { font-size: 1.2rem; }
+            .section { padding: 4rem 1.5rem; }
+            .section-title, .partners-section h2 { font-size: 2.2rem; margin-bottom: 3rem; }
+            .intro-section h3 { font-size: 2rem; }
+            .intro-section p, .intro-section ul { font-size: 1rem; }
+            .partners-section img { max-height: 60px; margin: 15px; }
+            .call-to-action-section { padding: 4rem 1.5rem; }
+            .call-to-action-section h2 { font-size: 2rem; }
+            .call-to-action-section p { font-size: 1rem; }
+            .call-to-action-section .btn-primary { padding: 0.8rem 2rem; font-size: 1rem; }
+            footer { padding: 2.5rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; padding: 1rem 1.5rem; text-align: center; }
+            .logo { margin-bottom: 1rem; }
+            nav ul { flex-wrap: wrap; justify-content: center; gap: 0.8rem 1.5rem; margin-top: 0.5rem; }
+            .hero-section { padding: 5rem 1.5rem; }
+            .hero-section h1 { font-size: 2.2rem; }
+            .hero-section p { font-size: 1rem; }
+            .section { padding: 3rem 1rem; }
+            .section-title, .partners-section h2 { font-size: 1.8rem; margin-bottom: 2rem; }
+            .intro-section .row { flex-direction: column; }
+            .intro-section .col-md-5, .intro-section .col-md-7 { width: 100%; text-align: center; }
+            .intro-section img { margin-bottom: 2rem; }
+            .intro-section h3, .intro-section p, .intro-section ul { text-align: center; }
+            .partners-section img { max-height: 50px; margin: 10px; }
+            .call-to-action-section { padding: 3rem 1rem; }
+            .call-to-action-section h2 { font-size: 1.8rem; }
+            .call-to-action-section p { font-size: 0.9rem; }
+            .call-to-action-section .btn-primary { padding: 0.8rem 2rem; font-size: 1rem; }
+            footer { padding: 2rem 1.5rem; }
+            footer .col-md-6 { margin-bottom: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            header { padding: 0.8rem 1rem; }
+            nav ul { gap: 0.5rem; }
+            .hero-section h1 { font-size: 1.8rem; }
+            .hero-section p { font-size: 0.85rem; }
+            .service-offerings-section .card-title { font-size: 1.25rem; }
+            .service-offerings-section .card-body p { font-size: 0.8rem; }
+            .partners-section img { max-height: 40px; margin: 8px; }
+            footer { padding: 1.5rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo">StromeX Tech</a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+              <li><a href="/solution" class="active">Solutions</a></li>
+                <li><a href="/contact.">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>IT Consulting & Managed Services</h1>
+            <p>Strategic IT guidance, monitoring, and full-service support to help your tech stack evolve efficiently.</p>
+        </div>
+    </section>
+
+    <section class="section py-5 bg-white intro-section">
+        <div class="container">
+            <h2 class="section-title">End-to-End IT Consulting & Managed Services</h2>
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
+                    <img src="https://static.wixstatic.com/media/394e97_e194941f94f34ab7be69d6333d4e1bbf~mv2.jpg/v1/fill/w_751,h_362,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/394e97_e194941f94f34ab7be69d6333d4e1bbf~mv2.jpg" alt="IT Consulting" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-7 col-md-6">
+                    <h3>IT Consulting & Managed Services</h3>
+                    <p>
+                        At **StromeX**, we prioritize delivering the experience customers expect from a trusted managed services partner responsible for their critical IT assets. Our team is committed to providing end-to-end consulting, seamless post-sale deployment, and reliable asset management—all with minimal downtime and strict adherence to SLAs.
+                    </p>
+                    <p>Our offerings include:</p>
+                    <ul>
+                        <li>Pan-India break-fix services for IT assets</li>
+                        <li>Deployment of certified professionals for project needs</li>
+                        <li>Support for IT asset relocation and movement</li>
+                        <li>Buyback and E-waste handling with compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section py-5 bg-light service-offerings-section">
+        <div class="container">
+            <h2 class="section-title">Our Managed IT Services</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_bbe0130f16aa4346b1ad042881507374~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/177.png" class="card-img-top" alt="IT Consulting">
+                        <div class="card-body">
+                            <h5 class="card-title">IT Consulting & Deployment</h5>
+                            <p>
+                                **Value-Add:** Our expert pre-sales team evaluates customer requirements and crafts high-ROI IT solutions, while supporting timely and successful implementation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_25e59a37007d408ba04cadd9192d0fbd~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/172.png" class="card-img-top" alt="Resident Engineers">
+                        <div class="card-body">
+                            <h5 class="card-title">Resident Engineers</h5>
+                            <p>
+                                **Value-Add:** Skilled engineers available on contract for projects, IT workspace support, and management of data center, network, or cloud environments.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_539cde2917af4e9f8415e7873c41a8f0~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/170.png" class="card-img-top" alt="IT Asset Relocation">
+                        <div class="card-body">
+                            <h5 class="card-title">IT Asset Relocation</h5>
+                            <p>
+                                **Value-Add:** Complete asset move services including planning, de-installation, secure logistics, and re-deployment at the new location.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_5b5f87103f5d4f52a608e1553239e9b5~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/175.png" class="card-img-top" alt="IT Managed Services">
+                        <div class="card-body">
+                            <h5 class="card-title">IT Managed Services</h5>
+                            <p>
+                                **Value-Add:** AMC or on-demand services covering L1/L2 help desk, lifecycle & CMDB management, and network support.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_8ad77ac35d6548229ff25107405c44f1~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/171.png" class="card-img-top" alt="Break-Fix Services">
+                        <div class="card-body">
+                            <h5 class="card-title">Pan-India Break-Fix</h5>
+                            <p>
+                                **Value-Add:** Nationwide support with full logistics, inventory control, and rapid engineer deployment for diagnosis and hardware repair.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/394e97_312b0f03ee094858bfb93f0df0912597~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/168.png" class="card-img-top" alt="IT Asset Buyback">
+                        <div class="card-body">
+                            <h5 class="card-title">Buyback & E-Waste Services</h5>
+                            <p>
+                                **Value-Add:** Secure e-waste disposal through certified recyclers and fair-value IT asset buybacks aligned with environmental policies.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section partners-section">
+        <div class="container">
+            <h2 class="section-title">Our Key Partners</h2>
+            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center align-items-center text-center">
+                <div class="col">
+                    <img src="https://static.wixstatic.com/media/394e97_062ab4276e4f46b2bac8c4e21524dc81~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Crestron.jpg" class="img-fluid" alt="Crestron">
+                </div>
+                <div class="col">
+                    <img src="https://static.wixstatic.com/media/394e97_084d95b6796441fea5a10aaec5b1c071~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Poly.jpg" class="img-fluid" alt="Poly">
+                </div>
+                <div class="col">
+                    <img src="https://static.wixstatic.com/media/394e97_f3b4ffd7e63d4b448953b966a2244c77~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logitech.jpg" class="img-fluid" alt="Logitech">
+                </div>
+                <div class="col">
+                    <img src="https://static.wixstatic.com/media/394e97_30c6de1063a9404c9946905ae30fb289~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/CISCO.jpg" class="img-fluid" alt="CISCO">
+                </div>
+                <div class="col">
+                    <img src="https://static.wixstatic.com/media/394e97_5f6efe07ee5c41cf9eff0534c0c472cc~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Lenovo.jpg" class="img-fluid" alt="Lenovo">
+                </div>
+                <div class="col">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Dell_logo_2016.svg" class="img-fluid" alt="Dell">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section call-to-action-section">
+        <div class="container">
+            <h2>Ready to Elevate Your IT Infrastructure?</h2>
+            <p>Contact our experts to discover how our IT consulting and managed services can transform your business operations.</p>
+            <a href="/contact" class="btn btn-primary">Get in Touch</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-md-6 mb-3">
+                    <h5>Contact Us</h5>
+                    <p><strong>CORPORATE OFFICE:</strong><br>
+                        Flat no 201 Krishna Nagar, Behind Dronam Raju Kalyana Mandapam Sri Harshita Nylayam Visakhapatnam Rural Madhurawada 530048, Andhrapradesh
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h5>Reach Out</h5>
+                    <p><strong>Phone:</strong> +91-79960 23456<br>
+                    <strong>Email:</strong> <a href="mailto:Hello@stromex.in" class="text-white">Hello@stromex.in</a></p>
+                    <p>&copy; 2025 StromeX IT Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
