@@ -1,5 +1,5 @@
 import streamlit as st
-from pymongo import MongoClient
+#from pymongo import MongoClient
 
 # MongoDB setup
 MONGO_URI = "mongodb://localhost:27017/"
