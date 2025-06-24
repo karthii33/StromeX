@@ -5,7 +5,8 @@ import os
 # --- MONGODB CONNECTION ---
 # It's recommended to use Streamlit's secrets management for sensitive data
 # For local development, you can use an environment variable or hardcode it.
-MONGO_URI = st.secrets.get("mongo_uri", "mongodb://localhost:27017/")
+MONGO_URI = st.secrets["MONGO_URI"]
+
 
 try:
     client = MongoClient(MONGO_URI)
