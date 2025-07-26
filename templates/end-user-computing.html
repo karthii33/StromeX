@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Our Solutions - StromeX Tech Solutions</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* --- CORE STYLES (Consistent with your Blog & Services page) --- */
+        :root {
+            --primary-color: #0ea5e9; /* Light Blue (sky-500) */
+            --primary-color-dark: #0284c7; /* Darker Blue (sky-600) */
+            --bg-light: #ffffff; /* White */
+            --bg-off-white: #f8fafc; /* Slate-50 */
+            --border-color: #e2e8f0; /* Slate-200 */
+            --text-dark: #1e293b;   /* Slate-800 */
+            --text-secondary: #64748b; /* Slate-500 */
+            --text-on-dark: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-off-white);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .main-header {
+            padding: 1rem 2rem;
+            position: sticky; top: 0; z-index: 1020;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-dark); }
+        .logo-img { height: 40px; width: auto; }
+        .main-nav .nav-link { color: var(--text-dark); font-weight: 500; position: relative; padding: 0.5rem 0; }
+        .main-nav .nav-link:hover { color: var(--primary-color); }
+        .main-nav .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.4s ease; border-radius: 2px;
+        }
+        .main-nav .nav-link:hover::after, .main-nav .nav-link.active::after { width: 100%; }
+        .main-nav .nav-link.active { color: var(--primary-color); }
+
+        /* Mobile Menu */
+        #menu-toggle { background: none; border: none; color: var(--text-dark); font-size: 1.5rem; z-index: 1031; }
+        .mobile-menu {
+            position: fixed; top: 0; right: -100%;
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            z-index: 1030;
+            transition: right 0.4s cubic-bezier(0.65, 0.05, 0.36, 1);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu .nav-link { font-size: 2.2rem; }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            text-align: center; 
+            padding: 8rem 2rem;
+            background-image: url('/static/images/endUser/h.png'); /* Solutions-themed background */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(29, 41, 59, 0.7);
+        }
+        .hero .container { position: relative; z-index: 1; }
+        .hero h1 { font-size: 3.8rem; font-weight: 800; color: var(--text-on-dark); }
+        .hero p { font-size: 1.3rem; max-width: 750px; margin: 1rem auto 2.5rem; font-weight: 300; color: #e2e8f0; }
+        
+        /* General Section Styling */
+        .section-padding { padding: 6rem 2rem; }
+        .section-title { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark); text-align: center; }
+        .section-subtitle { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 4rem; max-width: 750px; margin-left: auto; margin-right: auto; text-align: center; }
+
+        /* --- SOLUTIONS PAGE SPECIFIC STYLES --- */
+        .feature-list { list-style: none; padding: 0; }
+        .feature-list li { display: flex; align-items: flex-start; margin-bottom: 1.25rem; }
+        .feature-list i { color: var(--primary-color); font-size: 1.2rem; margin-right: 1rem; width: 25px; text-align: center; margin-top: 5px; }
+
+        .product-card {
+            background: var(--bg-light); border: 1px solid var(--border-color); border-radius: 18px; text-align: left;
+            overflow: hidden; height: 100%; display: flex; flex-direction: column;
+        }
+        .product-card .card-img-top {
+            background-color: var(--bg-off-white); padding: 2rem; height: 180px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .product-card .card-img-top img { max-height: 100%; max-width: 100%; width: auto; object-fit: contain; }
+        .product-card .card-body { display: flex; flex-direction: column; flex-grow: 1; }
+        .product-card .card-title { font-weight: 600; color: var(--text-dark); }
+        .product-card .value-add { font-size: 0.9rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+        
+        .partner-logo { max-height: 50px; width: auto; margin: 1.5rem; filter: grayscale(100%); opacity: 0.7; }
+        
+        /* --- CTA & Footer --- */
+        .btn-primary-custom {
+            background-color: var(--primary-color); border-color: var(--primary-color); color: #fff; padding: 0.8rem 2.5rem; border-radius: 50px;
+            font-weight: 600; transition: all 0.3s ease;
+        }
+        .btn-primary-custom:hover {
+            background-color: var(--primary-color-dark); border-color: var(--primary-color-dark);
+            transform: scale(1.05); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+        }
+        footer {
+            background-color: var(--bg-light); padding: 4rem 2rem; text-align: left;
+            border-top: 1px solid var(--border-color);
+        }
+        footer h5 { font-weight: 700; color: var(--text-dark); margin-bottom: 1.2rem; font-size: 1.2rem; }
+        footer p, footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; }
+        footer a:hover { color: var(--primary-color); }
+
+        /* --- ✨ NEW: ANIMATION STYLES ✨ --- */
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-on-scroll.fade-in-up {
+            transform: translateY(40px);
+        }
+        .animate-on-scroll.fade-in-left {
+            transform: translateX(-40px);
+        }
+        .animate-on-scroll.fade-in-right {
+            transform: translateX(40px);
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+        .product-card, .partner-logo {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); }
+        .partner-logo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+    </style>
+</head>
+<body>
+    <header class="main-header d-flex justify-content-between align-items-center">
+        <a href="/" class="logo d-flex align-items-center text-decoration-none">
+            <img src="/static/images/stlog1.png" alt="StromeX Logo" class="logo-img me-2">
+            <span class="logo-text">StromeX Tech</span>
+        </a>
+        <nav class="main-nav d-none d-lg-block">
+            <ul class="nav gap-4">
+                <li class="nav-item"><a class="nav-link" href="/">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/products">Products and Solutions</a></li>
+                <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+        <button id="menu-toggle" class="d-lg-none"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu-container">
+        <nav class="main-nav"><ul class="nav flex-column text-center">
+            <li class="nav-item"><a class="nav-link" href="/">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/products">Products and Solutions</a></li>
+            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
+        </ul></nav>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="animate-on-scroll fade-in-up">End-User Computing Solutions</h1>
+                <p class="animate-on-scroll fade-in-up" style="transition-delay: 100ms;">Empowering your workforce with cutting-edge devices and comprehensive support for enhanced productivity and mobility.</p>
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6 animate-on-scroll fade-in-left">
+                        <img src="/static/images/endUser/h2.png" alt="Team collaborating on modern devices" class="img-fluid rounded-3 shadow">
+                    </div>
+                    <div class="col-lg-6 animate-on-scroll fade-in-right">
+                        <h2 class="h1 fw-bold text-dark mb-4">Comprehensive End-User Compute</h2>
+                        <p>StromeX offers unparalleled end-user computing services to businesses of all sizes. Our expertise spans large enterprises, mid-market, and SMBs, ensuring tailored solutions for every client.</p>
+                        <ul class="feature-list mt-4">
+                            <li><i class="fas fa-truck-fast"></i><div><strong>Pan-India Deployment:</strong> Extensive logistics for nationwide delivery, maintenance, and managed services.</div></li>
+                            <li><i class="fas fa-cogs"></i><div><strong>Value-Added Services:</strong> Efficient deployment of Microsoft AutoPilot, antivirus, asset management, and more.</div></li>
+                            <li><i class="fas fa-puzzle-piece"></i><div><strong>Complete Accessory Ecosystem:</strong> From monitor arms to ergonomic gear.</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding" style="background-color: var(--bg-light);">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll fade-in-up">Our Product Offerings</h2>
+                <p class="section-subtitle animate-on-scroll fade-in-up" style="transition-delay: 100ms;">We provide a wide range of devices from leading OEMs to support a productive, flexible, and secure workforce.</p>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Added animate-on-scroll and fade-in-up classes to each column -->
+                    <div class="col animate-on-scroll fade-in-up"><div class="card product-card">
+                        <div class="card-img-top"><img src="/static/images/endUser/p1.png" alt="Laptops"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Laptops & Desktops</h5>
+                            <p class="card-text text-secondary"><strong>OEMs:</strong> Lenovo, Apple & Microsoft</p>
+                            <p class="card-text text-secondary value-add"><strong>Value-Add:</strong> Pan-India delivery, leasing, AutoPilot, buyback & e-waste management.</p>
+                        </div>
+                    </div></div>
+                    <div class="col animate-on-scroll fade-in-up"><div class="card product-card">
+                        <div class="card-img-top"><img src="/static/images/endUser/p2.png" alt="Mobile Devices"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Mobile, Tablets & More</h5>
+                            <p class="card-text text-secondary"><strong>OEMs:</strong> Apple & Lenovo</p>
+                            <p class="card-text text-secondary value-add"><strong>Value-Add:</strong> Accessories, flexible leasing, Mobile Device Management (MDM), and zero-touch deployment.</p>
+                        </div>
+                    </div></div>
+                    <div class="col animate-on-scroll fade-in-up"><div class="card product-card">
+                        <div class="card-img-top"><img src="/static/images/endUser/p3.png" alt="Headsets"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Headsets (Wired & Wireless)</h5>
+                            <p class="card-text text-secondary"><strong>OEMs:</strong> Poly & Jabra</p>
+                            <p class="card-text text-secondary value-add"><strong>Value-Add:</strong> High-quality noise-canceling, water/dust-resistant models, and reliable delivery.</p>
+                        </div>
+                    </div></div>
+                     <div class="col animate-on-scroll fade-in-up"><div class="card product-card">
+                         <div class="card-img-top"><img src="/static/images/endUser/p4.png" alt="Workstations"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Workstations</h5>
+                            <p class="card-text text-secondary"><strong>OEMs:</strong> Lenovo & Apple</p>
+                            <p class="card-text text-secondary value-add"><strong>Value-Add:</strong> Docking solutions, leasing, essential accessories, custom imaging, and buyback options.</p>
+                        </div>
+                    </div></div>
+                    <div class="col animate-on-scroll fade-in-up"><div class="card product-card">
+                        <div class="card-img-top"><img src="/static/images/endUser/p5.png" alt="Printers"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Print Solutions</h5>
+                            <p class="card-text text-secondary"><strong>OEMs:</strong> HP & Epson</p>
+                            <p class="card-text text-secondary value-add"><strong>Value-Add:</strong> Expert consultation, efficient deployment, configuration, and user training for optimal use.</p>
+                        </div>
+                    </div></div>
+                    <div class="col animate-on-scroll fade-in-up"><div class="card product-card">
+                        <div class="card-img-top"><img src="/static/images/endUser/p6.png" alt="IT Accessories"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Office IT Accessories</h5>
+                            <p class="card-text text-secondary"><strong>OEMs:</strong> Ergotron & Alogic</p>
+                            <p class="card-text text-secondary value-add"><strong>Value-Add:</strong> Ergonomic desks, monitor arms, docking stations, and a full range of cables.</p>
+                        </div>
+                    </div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <div class="container text-center">
+                <h2 class="section-title animate-on-scroll fade-in-up">Our Valued Technology Partners</h2>
+                <p class="section-subtitle animate-on-scroll fade-in-up" style="transition-delay: 100ms;">We collaborate with the industry's best to bring you reliable and innovative technology.</p>
+                <div class="d-flex flex-wrap justify-content-center align-items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Lenovo_logo_2015.svg" class="partner-logo animate-on-scroll fade-in-up" alt="Lenovo Logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="partner-logo animate-on-scroll fade-in-up" alt="Apple Logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" class="partner-logo animate-on-scroll fade-in-up" alt="Microsoft Logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/HP_logo_2012.svg" class="partner-logo animate-on-scroll fade-in-up" alt="HP Logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Polycom_logo.svg" class="partner-logo animate-on-scroll fade-in-up" alt="Poly Logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Jabra_logo.svg" class="partner-logo animate-on-scroll fade-in-up" alt="Jabra Logo">
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding text-center" style="background-color: #e0f2fe;">
+             <div class="container animate-on-scroll fade-in-up">
+                <h2 class="section-title mb-3">Ready to Elevate Your IT?</h2>
+                <p class="section-subtitle mt-0 mx-auto">Contact our experts to discover how our solutions can transform your business operations.</p>
+                <a href="/contact" class="btn btn-primary-custom">Get a Free Consultation</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h5>Contact Us</h5>
+                    <p><strong>CORPORATE OFFICE:</strong><br>
+                        Flat no 201 Krishna Nagar, Behind Dronam Raju Kalyana Mandapam Sri Harshita Nylayam Visakhapatnam Rural Madhurawada 530048, Andhrapradesh
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-3">
+                    <h5>Reach Out</h5>
+                    <p><strong>Phone:</strong> <a href="tel:+917996023456">+91-79960 23456</a><br>
+                    <strong>Email:</strong> <a href="mailto:Hello@stromex.in">Hello@stromex.in</a></p>
+                    <p class="mt-4">© <span id="currentYear"></span> StromeX IT Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+             // --- Set Dynamic Year in Footer ---
+             document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // --- Mobile Menu Logic ---
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu-container');
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                menuIcon.classList.toggle('fa-bars');
+                menuIcon.classList.toggle('fa-times');
+            });
+
+            // --- ✨ NEW: Scroll Animation Logic ✨ ---
+            // This script uses the Intersection Observer API to add a class to elements when they enter the viewport.
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // For staggered animations (like the product cards), apply a delay.
+                        // We check the parent element's children to get an index.
+                        const parent = entry.target.parentElement;
+                        if (parent && parent.classList.contains('g-4')) { // Target grid rows specifically
+                            const siblings = Array.from(parent.children);
+                            const elementIndex = siblings.indexOf(entry.target);
+                            // Apply a delay based on the element's position in the grid
+                            entry.target.style.transitionDelay = `${elementIndex * 100}ms`;
+                        }
+
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Stop observing the element once it's visible
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger the animation when 10% of the element is visible
+            });
+
+            // Start observing each element
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

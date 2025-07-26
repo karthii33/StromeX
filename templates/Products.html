@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Products & Solutions - StromeX IT Solutions</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #0ea5e9; /* Light Blue (sky-500) */
+            --primary-color-dark: #0284c7; /* Darker Blue (sky-600) */
+            --bg-light: #ffffff; /* White */
+            --bg-off-white: #f8fafc; /* Slate-50 */
+            --border-color: #e2e8f0; /* Slate-200 */
+            --text-dark: #1e293b;   /* Slate-800 */
+            --text-secondary: #64748b; /* Slate-500 */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            padding: 1rem 2rem; position: sticky; top: 0; z-index: 1020;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-dark); text-decoration: none; }
+        .logo-img {
+            height: 40px; /* Adjust the height of your logo */
+            width: auto;  /* Maintains aspect ratio */
+        }
+        .main-nav .nav-link { color: var(--text-dark); font-weight: 500; position: relative; padding: 0.5rem 0; }
+        .main-nav .nav-link:hover { color: var(--primary-color); }
+        .main-nav .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--primary-color); transition: width 0.4s ease; border-radius: 2px; }
+        .main-nav .nav-link:hover::after, .main-nav .nav-link.active::after { width: 100%; }
+        .main-nav .nav-link.active { color: var(--primary-color); }
+
+        /* --- Mobile Menu --- */
+        #menu-toggle { background: none; border: none; color: var(--text-dark); font-size: 1.5rem; z-index: 1031; }
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 1030; transition: right 0.4s cubic-bezier(0.65, 0.05, 0.36, 1); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu .nav-link { font-size: 2.2rem; }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            text-align: center; 
+            padding: 7rem 2rem;
+            background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(29, 41, 59, 0.7); /* Dark overlay */
+        }
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 { 
+            font-size: 3.8rem; 
+            font-weight: 800; 
+            color: #ffffff; /* White text on dark background */
+        }
+        .hero p { 
+            font-size: 1.3rem; 
+            max-width: 800px; 
+            margin: 1rem auto 0; 
+            font-weight: 300; 
+            color: #e2e8f0; /* Light grey text on dark background */
+        }
+        
+        /* --- General Section Styling --- */
+        .section-padding { padding: 6rem 2rem; }
+        .section-title { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark); text-align: center; }
+        .section-subtitle { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 4rem; max-width: 750px; margin-left: auto; margin-right: auto; text-align: center; }
+
+        /* --- Universal Card Style (For Products & Solutions) --- */
+        .interactive-card {
+            background: var(--bg-light); border: 1px solid var(--border-color);
+            padding: 2.5rem; border-radius: 18px; text-align: center;
+            height: 100%; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            opacity: 0; transform: translateY(30px);
+        }
+        .interactive-card.is-visible { opacity: 1; transform: translateY(0); }
+        .interactive-card:hover { 
+            transform: translateY(-8px); 
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        .interactive-card .icon-wrapper {
+            width: 70px; height: 70px; margin: 0 auto 1.5rem;
+            background-color: #e0f2fe; /* Light blue background */
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem; color: var(--primary-color-dark);
+            transition: transform 0.4s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+        .interactive-card:hover .icon-wrapper {
+            background-color: var(--primary-color);
+            color: #fff;
+            transform: rotate(-10deg) scale(1.1);
+        }
+        .interactive-card h3 { font-weight: 600; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 0.8rem; }
+        .interactive-card p { flex-grow: 1; margin-bottom: 0; color: var(--text-secondary); }
+
+        /* --- Featured Product Section --- */
+        .featured-product-card {
+            background-color: var(--bg-off-white);
+            border: 1px solid var(--border-color);
+            border-radius: 24px; padding: 2rem;
+        }
+        .featured-product-card .featured-tag {
+            color: var(--primary-color-dark);
+            font-weight: 600;
+        }
+        .featured-product-card h2 { color: var(--text-dark); }
+        .featured-product-card .lead { color: var(--text-secondary); }
+
+        /* --- CTA & Footer --- */
+        .btn-primary-custom {
+            background-color: var(--primary-color); border-color: var(--primary-color);
+            color: #fff; padding: 0.8rem 2.5rem; border-radius: 50px;
+            font-weight: 600; transition: all 0.3s ease;
+        }
+        .btn-primary-custom:hover {
+            background-color: var(--primary-color-dark); border-color: var(--primary-color-dark);
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+        }
+        .cta-section { background-color: var(--bg-off-white); border: 1px solid var(--border-color); }
+        footer { background-color: var(--bg-off-white); padding: 4rem 2rem; border-top: 1px solid var(--border-color); }
+        footer h5 { font-weight: 700; color: var(--text-dark); margin-bottom: 1.2rem; }
+        footer p, footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; }
+        footer a:hover { color: var(--primary-color); }
+        
+        @media (max-width: 991.98px) {
+            .main-header { padding: 1rem 1.5rem; }
+            .hero h1 { font-size: 3rem; }
+            .section-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header d-flex justify-content-between align-items-center">
+        <a href="/" class="logo d-flex align-items-center text-decoration-none">
+            <img src="/static/images/stlog1.png" alt="" class="logo-img me-2">
+            <span class="logo-text">StromeX Tech</span>
+        </a>
+        <nav class="main-nav d-none d-lg-block">
+            <ul class="nav gap-4">
+                <li class="nav-item"><a class="nav-link" href="/">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/products">Products & Solutions</a></li>
+                <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+        <button id="menu-toggle" class="d-lg-none"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu-container">
+        <nav class="main-nav"><ul class="nav flex-column text-center">
+            <li class="nav-item"><a class="nav-link" href="/">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/products-and-solutions">Products & Solutions</a></li>
+            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
+        </ul></nav>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Integrated Products & Solutions</h1>
+                <p>From powerful standalone products to comprehensive, strategic solutions, we provide the building blocks for your digital transformation.</p>
+            </div>
+        </section>
+
+        <section id="solutions" class="section-padding">
+            <div class="container">
+                <h2 class="section-title">Our Comprehensive Solutions</h2>
+                <p class="section-subtitle">We deliver end-to-end strategic frameworks that drive efficiency, enhance security, and foster growth for your enterprise.</p>
+                
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <a href="/end-user-computing" class="interactive-card w-100">
+                            <div class="icon-wrapper"><i class="fas fa-desktop"></i></div>
+                            <h3>End-User Computing</h3>
+                            <p>Empowering users with secure desktops, VDI, and endpoint management for enhanced productivity and mobility.</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <a href="/audio-video-solutions" class="interactive-card w-100">
+                            <div class="icon-wrapper"><i class="fas fa-video"></i></div>
+                            <h3>Audio & Video Solutions</h3>
+                            <p>Professional AV setups for seamless meetings, engaging digital signage, and smart collaboration experiences.</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <a href="/data-center-infrastructure" class="interactive-card w-100">
+                            <div class="icon-wrapper"><i class="fas fa-server"></i></div>
+                            <h3>Data Center Infrastructure</h3>
+                            <p>Expert design and deployment of high-performance data centers, optimizing power, cooling, and rack solutions.</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <a href="/software-saas-applications" class="interactive-card w-100">
+                            <div class="icon-wrapper"><i class="fas fa-cubes"></i></div>
+                            <h3>Software & SaaS Applications</h3>
+                            <p>Enterprise-grade software and SaaS applications to streamline operations, enhance communication, and bolster security.</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <a href="/cloud-colocation-services" class="interactive-card w-100">
+                            <div class="icon-wrapper"><i class="fas fa-cloud"></i></div>
+                            <h3>Cloud & Co-Location</h3>
+                            <p>Flexible cloud hosting, hybrid infrastructure, and secure colocation services for unparalleled business agility.</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <a href="/it-consulting-managed-services" class="interactive-card w-100">
+                            <div class="icon-wrapper"><i class="fas fa-headset"></i></div>
+                            <h3>Consulting & Managed Services</h3>
+                            <p>Strategic IT guidance, proactive monitoring, and full-service support to help your tech stack evolve efficiently.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Product Section -->
+        <section class="section-padding pt-0">
+            <div class="container">
+                <div class="featured-product-card">
+                    <div class="row align-items-center g-5">
+                        <div class="col-lg-5 text-center text-lg-start">
+                            <span class="featured-tag text-uppercase">Featured Product</span>
+                            <h2 class="display-5 fw-bold my-3">SmartHelpdesk</h2>
+                            <p class="lead">Streamline your IT support with our AI-powered ticketing and asset management system. Automate workflows, gain valuable insights, and enhance user satisfaction with a single, intuitive platform.</p>
+                            <a href="/contact" class="btn btn-primary-custom mt-3">Request a Demo</a>
+                        </div>
+                        <div class="col-lg-7">
+                            <img src="/static/images/productreq.png" class="img-fluid rounded-3" alt="SmartHelpdesk dashboard interface">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <h2 class="section-title">Our Technology Product Suite</h2>
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <a href="#" class="interactive-card w-100">
+                            <div class="icon-wrapper"><i class="fas fa-shield-alt"></i></div>
+                            <h3>Unified Threat Management</h3>
+                            <p>All-in-one security appliance integrating firewall, antivirus, VPN, and content filtering for comprehensive protection.</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <a href="#" class="interactive-card w-100">
+                            <div class="icon-wrapper"><i class="fas fa-database"></i></div>
+                            <h3>Enterprise Backup Solutions</h3>
+                            <p>Robust backup systems supporting cloud/on-prem environments with advanced encryption and automated recovery.</p>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <a href="#" class="interactive-card w-100">
+                            <div class="icon-wrapper"><i class="fas fa-network-wired"></i></div>
+                            <h3>Network Optimization Suite</h3>
+                            <p>Advanced tools for traffic shaping, bandwidth control, and real-time network analytics to boost performance.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <div class="container">
+                <div class="cta-section text-center p-5 rounded-3">
+                    <h2 class="section-title mb-3">Ready to Architect Your Future?</h2>
+                    <p class="section-subtitle mt-0 mx-auto">Let's discuss how StromeX can architect the perfect product and solution framework for your business needs.</p>
+                    <a href="/contact" class="btn btn-primary-custom">Talk to Our Experts</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h5>Contact Us</h5>
+                    <p><strong>CORPORATE OFFICE:</strong><br>
+                        Flat no 201 Krishna Nagar, Behind Dronam Raju Kalyana Mandapam Sri Harshita Nylayam Visakhapatnam Rural Madhurawada 530048, Andhrapradesh
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-3">
+                    <h5>Reach Out</h5>
+                    <p><strong>Phone:</strong> <a href="tel:+917996023456">+91-79960 23456</a><br>
+                    <strong>Email:</strong> <a href="mailto:Hello@stromex.in">Hello@stromex.in</a></p>
+                    <p class="mt-4">© 2025 StromeX IT Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Mobile Menu Logic ---
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu-container');
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                menuIcon.classList.toggle('fa-bars');
+                menuIcon.classList.toggle('fa-times');
+            });
+
+            // --- Animate elements on scroll ---
+            const animatedElements = document.querySelectorAll('.interactive-card');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('is-visible');
+                        }, (index % 3) * 150);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

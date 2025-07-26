@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StromeX Tech Solutions - Innovating for a Digital Future</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- Swiper.js for Carousels -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- ADD THIS LINE FOR ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    :root {
+        --gradient-start: #38bdf8; /* sky-400 */
+        --gradient-end: #3b82f6; /* blue-500 */
+    }
+    html, body {
+        position: relative;
+        height: 100%;
+        scroll-behavior: smooth; /* Added for smooth scrolling */
+    }
+    body {
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f8fafc; /* slate-50 */
+        color: #334155; /* slate-700 */
+    }
+
+    /* --- Base Scroll Animation Rules --- */
+    .fade-in-section { opacity: 0; transform: translateY(50px); transition: opacity 0.8s cubic-bezier(0.165,0.84,0.44,1), transform 0.8s cubic-bezier(0.165,0.84,0.44,1);}
+    .fade-in-section.is-visible { opacity: 1; transform: translateY(0);}
+    .animate-slide-in-left, .animate-slide-in-right { opacity: 0; transition: opacity 0.8s cubic-bezier(0.165,0.84,0.44,1), transform 0.9s cubic-bezier(0.165,0.84,0.44,1); }
+    .animate-slide-in-left { transform: translateX(-60px); }
+    .animate-slide-in-right { transform: translateX(60px); }
+    .animate-slide-in-left.is-visible, .animate-slide-in-right.is-visible { opacity: 1; transform: translateX(0); }
+    .about-image { transition: transform 0.5s, box-shadow 0.5s;}
+    .about-image:hover { transform: scale(1.05); box-shadow: 0 25px 50px -12px rgba(59,130,246,0.25);}
+    
+    /* --- Hero Section Vertical Slider --- */
+    .hero-swiper {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* --- START: Magic Hero Transition Styles --- */
+
+    /* Keyframes for the Ken Burns background effect */
+    @keyframes kenburns-top-left {
+      0% { transform: scale(1.1) translate(0, 0); }
+      100% { transform: scale(1) translate(-2%, -2%); }
+    }
+    @keyframes kenburns-bottom-right {
+      0% { transform: scale(1.1) translate(0, 0); }
+      100% { transform: scale(1) translate(2%, 2%); }
+    }
+    
+    /* NEW: Keyframes for scroll down indicator */
+    @keyframes bounce-animation {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        60% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Base slide styles */
+    .hero-swiper .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden; /* Crucial for Ken Burns effect */
+    }
+
+    /* Pseudo-element for the animated background image */
+    .hero-swiper .swiper-slide::before {
+        content: '';
+        position: absolute;
+        inset: -5px; /* Cover edges slightly to avoid gaps on scale */
+        background-size: cover;
+        background-position: center;
+        background-image: var(--bg-image); /* Using CSS variable from inline style */
+        will-change: transform;
+        animation-duration: 25s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+    
+    /* Apply different animations to different slides for variety */
+    .hero-swiper .swiper-slide:nth-child(odd)::before {
+        animation-name: kenburns-top-left;
+    }
+    .hero-swiper .swiper-slide:nth-child(even)::before {
+        animation-name: kenburns-bottom-right;
+    }
+    
+    /* Staggered animation for children of hero-slide-content */
+    .hero-slide-content > * {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s cubic-bezier(0.215, 0.610, 0.355, 1), 
+                    transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
+    }
+
+    .swiper-slide-active .hero-slide-content > * {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Apply the stagger delay */
+    .swiper-slide-active .hero-slide-content > h1 {
+        transition-delay: 0.4s;
+    }
+    .swiper-slide-active .hero-slide-content > p {
+        transition-delay: 0.6s;
+    }
+    .swiper-slide-active .hero-slide-content > .flex { /* This targets the button container */
+        transition-delay: 0.8s;
+    }
+    
+    /* --- END: Magic Hero Transition Styles --- */
+
+    .hero-swiper .swiper-pagination-vertical.swiper-pagination-bullets, 
+    .hero-swiper .swiper-vertical>.swiper-pagination-bullets {
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .hero-swiper .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
+        opacity: 1;
+        margin: 12px 0 !important;
+        transition: all 0.3s ease;
+    }
+    .hero-swiper .swiper-pagination-bullet-active {
+        background-color: #ffffff;
+        transform: scale(1.5);
+        height: 25px;
+        border-radius: 5px;
+    }
+
+    /* NEW: Scroll down indicator style */
+    .scroll-down-indicator {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 20;
+        cursor: pointer;
+        color: white;
+        text-align: center;
+    }
+
+    .scroll-down-indicator i {
+        font-size: 2rem;
+        animation: bounce-animation 2s infinite;
+    }
+    
+    /* --- Chatbot Styles --- */
+    #chatbot-toggle { position: fixed; bottom: 2rem; right: 2rem; width: 64px; height: 64px; background-image: linear-gradient(to right, var(--gradient-start), var(--gradient-end)); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 0 0 2px rgba(255,255,255,0.1); cursor: pointer; z-index: 1000; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    #chatbot-toggle:hover { transform: scale(1.1); }
+    #chatbot-container { position: fixed; bottom: 7rem; right: 2rem; width: 400px; max-width: 95vw; height: 540px; background-color: #ffffff; border-radius: 1.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 1px solid #e2e8f0; display: flex; flex-direction: column; overflow: hidden; z-index: 999; opacity: 0; transform: translateY(20px) scale(0.95); transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none; }
+    #chatbot-container.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    #chat-log { scrollbar-width: thin; scrollbar-color: var(--gradient-start) #e2e8f0; }
+    #chat-log::-webkit-scrollbar { width: 6px; }
+    #chat-log::-webkit-scrollbar-track { background: #e2e8f0; }
+    #chat-log::-webkit-scrollbar-thumb { background-color: var(--gradient-start); border-radius: 6px; }
+    .bot-message-container { display: flex; justify-content: flex-start; margin-bottom: 1rem; }
+    .bot-message { background-color: #f1f5f9; padding: 0.75rem 1rem; border-radius: 1rem 1rem 1rem 0; max-width: 80%; color: #475569; }
+    .user-message-container { display: flex; justify-content: flex-end; margin-bottom: 1rem; }
+    .user-message { background-image: linear-gradient(to right, var(--gradient-start), var(--gradient-end)); padding: 0.75rem 1rem; border-radius: 1rem 1rem 0 1rem; max-width: 80%; color: #ffffff; font-weight: 500; }
+    .chat-option-btn { background-color: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; padding: 0.75rem; border-radius: 0.75rem; text-align: center; cursor: pointer; transition: background-color 0.2s, transform 0.2s; font-size: 0.98rem; font-weight: 500; }
+    .chat-option-btn:hover { background-color: #bae6fd; transform: translateY(-2px); }
+
+    /* --- Swiper Partner Section Styles --- */
+    .partner-swiper img { max-height: 76px; width: auto; opacity: 0.8; transition: opacity 0.4s, transform 0.4s; filter: grayscale(100%);}
+    .partner-swiper .swiper-slide:hover img { opacity: 1; transform: translateY(-4px) scale(1.1); filter: grayscale(0%);}
+    .partner-swiper .swiper-button-next, .partner-swiper .swiper-button-prev { color: #3b82f6; background-color: #f1f5f9; border-radius: 50%; width: 44px; height: 44px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: all 0.3s ease; border: 1px solid #e2e8f0; }
+    .partner-swiper .swiper-button-next:hover, .partner-swiper .swiper-button-prev:hover { background-color: #3b82f6; color: #ffffff; transform: scale(1.05); }
+    .partner-swiper .swiper-button-next::after, .partner-swiper .swiper-button-prev::after { font-size: 18px; font-weight: 900; }
+    .partner-swiper .swiper-button-prev { left: 0px; }
+    .partner-swiper .swiper-button-next { right: 0px; }
+    @media (max-width: 768px) { .partner-swiper .swiper-button-next, .partner-swiper .swiper-button-prev { display: none; } }
+    
+    /* --- Classy Products & Solutions Carousel --- */
+    .solutions-swiper-section {
+        padding-top: 4rem;
+        padding-bottom: 5rem;
+    }
+    .solutions-swiper {
+        width: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+    .solutions-swiper .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 320px;
+        height: 450px;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        opacity: 0.5;
+        transform: scale(0.85);
+    }
+    .solutions-swiper .swiper-slide-active {
+        opacity: 1;
+        transform: scale(1);
+    }
+    .solution-slide-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 100%;
+        text-align: left;
+    }
+    .solution-slide-content .icon-wrapper {
+        width: 3rem;
+        height: 3rem;
+        background-color: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+        flex-shrink: 0;
+    }
+    .solution-slide-content .icon-wrapper i {
+        font-size: 1.5rem;
+        color: #ffffff;
+    }
+    .solution-slide-content h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+    .solution-slide-content p {
+        font-size: 0.95rem;
+        color: #e2e8f0;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    .solution-slide-content .learn-more-btn {
+        display: inline-block;
+        padding: 0.6rem 1.25rem;
+        background-color: transparent;
+        border: 2px solid #ffffff;
+        color: #ffffff;
+        border-radius: 999px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+        width: fit-content;
+    }
+    .solution-slide-content .learn-more-btn:hover {
+        background-color: #ffffff;
+        color: #1e293b;
+    }
+    .solutions-swiper .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        background-color: #9ca3af;
+        opacity: 0.8;
+    }
+    .solutions-swiper .swiper-pagination-bullet-active {
+        background-color: var(--gradient-end);
+        transform: scale(1.2);
+    }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-700 overflow-x-hidden relative">
+
+<!-- Header -->
+<header class="fixed top-0 left-0 w-full z-50 p-4">
+  <nav class="container mx-auto px-6 py-3 bg-white/80 backdrop-blur-lg border border-slate-200/80 shadow-lg rounded-2xl flex items-center justify-between">
+    <a href="#" class="flex items-center space-x-3 text-2xl font-bold text-slate-800 hover:text-sky-500 transition duration-300">
+      <img src="/static/images/stlog1.png" alt="StromeX Tech Logo" class="w-10 h-10 object-contain" />
+      <span>StromeX Tech</span>
+    </a>
+    <div class="hidden md:flex items-center space-x-8 text-base font-medium">
+      <a href="#about" class="relative text-slate-600 hover:text-sky-600 transition">About</a>
+      <a href="/services" class="relative text-slate-600 hover:text-sky-600 transition">Services</a>
+      <a href="/products" class="relative text-slate-600 hover:text-sky-600 transition">Products And Solutions</a>
+      <a href="/blog" class="relative text-slate-600 hover:text-sky-600 transition">Blog</a>
+      <a href="/contact" class="relative text-slate-600 hover:text-sky-600 transition">Contact Us</a>
+    </div>
+    <div class="md:hidden">
+      <button id="mobile-menu-button" class="text-slate-600 hover:text-sky-600 focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6H4" /></svg>
+      </button>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-sm z-[60] flex flex-col items-center justify-center space-y-8 text-center">
+      <button id="close-menu-button" class="absolute top-8 right-8 text-slate-500 hover:text-slate-800">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+      <a href="#about" class="text-3xl font-bold text-slate-800 hover:text-sky-500">About</a>
+      <a href="/blog" class="text-3xl font-bold text-slate-800 hover:text-sky-500">Blog</a>
+      <a href="#services" class="text-3xl font-bold text-slate-800 hover:text-sky-500">Services</a>
+      <a href="#solutions" class="text-3xl font-bold text-slate-800 hover:text-sky-500">Solutions</a>
+      <a href="#contact" class="text-3xl font-bold text-slate-800 hover:text-sky-500">Contact Us</a>
+  </div>
+</header>
+
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-sky-400 to-blue-500 z-[100]"></div>
+
+<!-- Main content sections -->
+<main> 
+    <!-- Hero Section -->
+    <section id="home" class="relative hero-swiper swiper">
+      <div class="swiper-wrapper">
+        <!-- MODIFIED: Slide 1: General Solutions - Using CSS variable for background -->
+        <div class="swiper-slide" style="--bg-image: url('/static/images/hero.png');">
+          <div class="absolute inset-0 bg-slate-900/60"></div>
+          <div class="container mx-auto px-6 z-10 hero-slide-content">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6 text-white">
+              <span class="block">Complete <span class="text-blue-400">IT</span> <span class="text-sky-300">Solutions</span> for Your Business</span>
+            </h1>
+            <p class="text-lg md:text-xl mb-8 text-slate-200 max-w-2xl mx-auto">
+              From networking infrastructure to cloud services, we provide comprehensive IT solutions that drive your business forward.
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+              <a href="#contact" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg text-lg transition inline-block">Get Started</a>
+              <a href="#services" class="bg-transparent border border-slate-200 hover:bg-slate-800 text-white font-semibold py-4 px-10 rounded-full shadow-lg text-lg transition inline-block">View Services</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODIFIED: Slide 2: Innovation & Cloud - Using CSS variable for background -->
+        <div class="swiper-slide" style="--bg-image: url('/static/images/hero2.png');">
+          <div class="absolute inset-0 bg-slate-900/60"></div>
+          <div class="container mx-auto px-6 z-10 hero-slide-content">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6 text-white">
+              <span class="block">Innovate with <span class="text-sky-300">Cloud</span> and <span class="text-blue-400">AI</span></span>
+            </h1>
+            <p class="text-lg md:text-xl mb-8 text-slate-200 max-w-2xl mx-auto">
+              Future-proof your operations with our scalable cloud platforms, AI-driven insights, and modern infrastructure.
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+              <a href="#solutions" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg text-lg transition inline-block">Explore Solutions</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODIFIED: Slide 3: Security - Using CSS variable for background -->
+        <div class="swiper-slide" style="--bg-image: url('/static/images/hero3.png');">
+          <div class="absolute inset-0 bg-slate-900/60"></div>
+          <div class="container mx-auto px-6 z-10 hero-slide-content">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6 text-white">
+              <span class="block">Secure Your <span class="text-blue-400">Digital</span> <span class="text-sky-300">Assets</span></span>
+            </h1>
+            <p class="text-lg md:text-xl mb-8 text-slate-200 max-w-2xl mx-auto">
+              Protect your business with our robust cybersecurity services, including threat detection, data encryption, and 24/7 monitoring.
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+              <a href="#services" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg text-lg transition inline-block">Our Security Services</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODIFIED: Slide 4: Partnership & Growth - Using CSS variable for background -->
+        <div class="swiper-slide" style="--bg-image: url('/static/images/hero4.png');">
+          <div class="absolute inset-0 bg-slate-900/60"></div>
+          <div class="container mx-auto px-6 z-10 hero-slide-content">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6 text-white">
+              <span class="block">Your Strategic <span class="text-sky-300">Technology</span> <span class="text-blue-400">Partner</span></span>
+            </h1>
+            <p class="text-lg md:text-xl mb-8 text-slate-200 max-w-2xl mx-auto">
+              We work with you to understand your goals, providing tailored technology strategies that fuel growth and efficiency.
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+              <a href="#about" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg text-lg transition inline-block">About Us</a>
+              <a href="#contact" class="bg-transparent border border-slate-200 hover:bg-slate-800 text-white font-semibold py-4 px-10 rounded-full shadow-lg text-lg transition inline-block">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination hero-pagination"></div>
+      
+      <!-- NEW: Scroll Down Indicator -->
+      <a href="#about" id="scroll-down-btn" class="scroll-down-indicator">
+          <i class="fa-solid fa-chevron-down"></i>
+      </a>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="pt-20 md:pt-28 pb-8 px-6">
+      <div class="container mx-auto bg-white rounded-3xl shadow-xl p-8 md:p-12">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+          <div class="flex-shrink-0 w-full md:w-1/2 flex justify-center md:justify-start mb-8 md:mb-0 animate-slide-in-left">
+            <img src="/static/images/stabout.jpeg" alt="Team Collaboration" class="rounded-xl w-full max-w-md shadow-lg about-image">
+          </div>
+          <div class="w-full md:w-1/2 flex flex-col justify-center items-start animate-slide-in-right">
+            <h2 class="text-4xl font-bold mb-6 text-slate-900">
+              About <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-blue-500">Stromex Tech</span>
+            </h2>
+            <p class="text-slate-600 text-lg mb-4">
+              Stromex Tech Solutions LLP is a leading provider of comprehensive IT services and networking solutions. We specialize in delivering cutting-edge technology solutions that empower businesses to thrive in the digital age.
+            </p>
+            <p class="text-slate-600 text-lg mb-8">
+              As an authorized reseller of premium computer peripherals and networking equipment, we ensure our clients receive only the highest quality products backed by exceptional service and support.
+            </p>
+            <div class="flex gap-6 w-full">
+              <div class="flex-1 bg-slate-100 border border-slate-200 rounded-xl py-6 flex flex-col items-center">
+                <span class="text-3xl font-bold text-slate-800 mb-2">10+</span>
+                <span class="text-slate-600 text-base font-semibold">Years Experience</span>
+              </div>
+              <div class="flex-1 bg-slate-100 border border-slate-200 rounded-xl py-6 flex flex-col items-center">
+                <span class="text-3xl font-bold text-slate-800 mb-2">500+</span>
+                <span class="text-slate-600 text-base font-semibold">Projects Completed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Our Services Section -->
+    <section id="services" class="pb-8 px-6">
+      <div class="container mx-auto fade-in-section bg-white rounded-3xl shadow-xl p-8 md:p-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 text-center">Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-500">Services</span></h2>
+        <p class="text-slate-600 max-w-2xl mx-auto mb-12 text-center">
+          StromeX Tech provides a comprehensive suite of IT services to help your business thrive, from cloud solutions and hardware to advanced networking and security.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          
+          <!-- Card 1: Cloud Services -->
+          <div class="bg-slate-50 border border-slate-200 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between min-h-[370px]">
+            <div>
+                <div class="mb-6 flex items-center">
+                  <div class="h-14 w-14 flex items-center justify-center rounded-xl bg-gradient-to-tr from-sky-400 to-blue-500 mr-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.5 19a4.5 4.5 0 00-.5-9 5 5 0 10-9 4.1"></path></svg>
+                  </div>
+                  <h3 class="text-2xl font-semibold text-slate-800">Cloud Services</h3>
+                </div>
+                <p class="text-slate-600 mb-4">Modern cloud solutions for scalable, secure, and efficient business operations.</p>
+            </div>
+            <ul class="space-y-2 text-base">
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Cloud Migration</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Backup Solutions</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Virtual Servers</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Cloud Storage</li>
+            </ul>
+          </div>
+    
+          <!-- Card 2: Computer Peripherals -->
+          <div class="bg-slate-50 border border-slate-200 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between min-h-[370px]">
+            <div>
+              <div class="mb-6 flex items-center">
+                <div class="h-14 w-14 flex items-center justify-center rounded-xl bg-gradient-to-tr from-sky-400 to-blue-500 mr-4">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="12" rx="2" ry="2" stroke-width="2" stroke="currentColor" fill="none"></rect><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 19v2a2 2 0 004 0v-2"></path></svg>
+                </div>
+                <h3 class="text-2xl font-semibold text-slate-800">Computer Peripherals</h3>
+              </div>
+              <p class="text-slate-600 mb-4">Wide range of quality computer hardware and peripherals from trusted brands.</p>
+            </div>
+            <ul class="space-y-2 text-base">
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Laptops & Desktops</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Printers & Scanners</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Networking Equipment</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Storage Devices</li>
+            </ul>
+          </div>
+          
+          <!-- Card 3: Networking Solutions -->
+          <div class="bg-slate-50 border border-slate-200 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between min-h-[370px]">
+            <div>
+              <div class="mb-6 flex items-center">
+                <div class="h-14 w-14 flex items-center justify-center rounded-xl bg-gradient-to-tr from-sky-400 to-blue-500 mr-4">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2" stroke-width="2"></circle><circle cx="18" cy="6" r="2" stroke-width="2"></circle><circle cx="12" cy="18" r="2" stroke-width="2"></circle><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 8v4a2 2 0 002 2h1m6-6v4a2 2 0 01-2 2h-1"></path></svg>
+                </div>
+                <h3 class="text-2xl font-semibold text-slate-800">Networking Solutions</h3>
+              </div>
+              <p class="text-slate-600 mb-4">Complete network infrastructure design, implementation, and maintenance for businesses of all sizes.</p>
+            </div>
+            <ul class="space-y-2 text-base">
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> LAN/WAN Setup</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Network Security</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Wireless Solutions</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Network Monitoring</li>
+            </ul>
+          </div>
+    
+          <!-- Card 4: Security Services -->
+          <div class="bg-slate-50 border border-slate-200 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between min-h-[370px]">
+            <div>
+              <div class="mb-6 flex items-center">
+                <div class="h-14 w-14 flex items-center justify-center rounded-xl bg-gradient-to-tr from-sky-400 to-blue-500 mr-4">
+                   <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-semibold text-slate-800">Security Services</h3>
+              </div>
+              <p class="text-slate-600 mb-4">Comprehensive cybersecurity solutions to protect your business from digital threats.</p>
+            </div>
+            <ul class="space-y-2 text-base">
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Firewall Management</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Antivirus Solutions</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Data Encryption</li>
+              <li class="flex items-center text-slate-600"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Security Audits</li>
+            </ul>
+          </div>
+    
+        </div>
+      </div>
+    </section>
+
+
+<!-- Products & Solutions Section -->
+<section id="solutions" class="solutions-swiper-section bg-slate-100">
+    <div class="container mx-auto px-4 fade-in-section">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-4">
+            Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-500">Products & Solutions</span>
+        </h2>
+        <p class="text-slate-600 max-w-2xl mx-auto mb-12 text-center">
+            Discover our range of tailored solutions designed to meet the complex challenges of modern business technology.
+        </p>
+        
+        <!-- Swiper -->
+        <div class="swiper solutions-swiper">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide" style="background-image:url(/static/images/enduser.png)">
+                    <div class="solution-slide-content">
+                        <div class="icon-wrapper"><i class="fas fa-desktop"></i></div>
+                        <h3>End-User Computing</h3>
+                        <p>Empowering users with secure desktops, VDI, and endpoint management for enhanced productivity.</p>
+                        <a href="/end-user-computing" class="learn-more-btn">Learn More</a>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="swiper-slide" style="background-image:url(/static/images/audiovideo.png)">
+                    <div class="solution-slide-content">
+                        <div class="icon-wrapper"><i class="fas fa-video"></i></div>
+                        <h3>Audio & Video Solutions</h3>
+                        <p>Professional AV setups for seamless meetings, engaging digital signage, and smart collaboration.</p>
+                         <a href="/audio-video-solutions" class="learn-more-btn">Learn More</a>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="swiper-slide" style="background-image:url(/static/images/datainfa.png)">
+                     <div class="solution-slide-content">
+                        <div class="icon-wrapper"><i class="fas fa-server"></i></div>
+                        <h3>Data Center Infrastructure</h3>
+                        <p>High-performance data centers with optimized power, cooling, and rack solutions for total reliability.</p>
+                         <a href="/data-center-infrastructure" class="learn-more-btn">Learn More</a>
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="swiper-slide" style="background-image:url(/static/images/softsass.png)">
+                     <div class="solution-slide-content">
+                        <div class="icon-wrapper"><i class="fas fa-cubes"></i></div>
+                        <h3>Software & SaaS Apps</h3>
+                        <p>Enterprise-grade software and SaaS to streamline operations, enhance communication, and bolster security.</p>
+                         <a href="/software-saas-applications" class="learn-more-btn">Learn More</a>
+                    </div>
+                </div>
+                <!-- Slide 5 -->
+                <div class="swiper-slide" style="background-image:url(/static/images/cloud.png)">
+                     <div class="solution-slide-content">
+                        <div class="icon-wrapper"><i class="fas fa-cloud"></i></div>
+                        <h3>Cloud & Co-Location</h3>
+                        <p>Flexible cloud hosting, hybrid infrastructure, and secure colocation for unparalleled business agility.</p>
+                         <a href="/cloud-colocation-services" class="learn-more-btn">Learn More</a>
+                    </div>
+                </div>
+                <!-- Slide 6 -->
+                <div class="swiper-slide" style="background-image:url(/static/images/manage.png)">
+                     <div class="solution-slide-content">
+                        <div class="icon-wrapper"><i class="fas fa-headset"></i></div>
+                        <h3>Managed Services</h3>
+                        <p>Strategic IT guidance, proactive monitoring, and full-service support to help your tech stack evolve.</p>
+                         <a href="/it-consulting-managed-services" class="learn-more-btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Partners Section -->
+<section id="partners" class="pb-8 px-6">
+  <div class="container mx-auto fade-in-section bg-white rounded-3xl shadow-xl p-8 md:p-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 text-center">Our Trusted <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-500">Partners</span></h2>
+    <p class="text-slate-600 max-w-2xl mx-auto mb-12 text-center">Collaborating with the world's leading technology providers to deliver reliable and innovative solutions.</p>
+    
+    <div class="swiper partner-swiper relative" style="max-width:1160px;margin:0 auto;padding-left:50px; padding-right:50px;">
+      <div class="swiper-wrapper items-center">
+        <div class="swiper-slide"><img src="https://cdn.worldvectorlogo.com/logos/microsoft-5.svg" alt="Microsoft Logo"></div>
+        <div class="swiper-slide"><img src="https://cdn.worldvectorlogo.com/logos/amazon-web-services-2.svg" alt="AWS Logo"></div>
+        <div class="swiper-slide"><img src="https://cdn.worldvectorlogo.com/logos/cisco-2.svg" alt="Cisco Logo"></div>
+        <div class="swiper-slide"><img src="https://cdn.worldvectorlogo.com/logos/google-cloud-2.svg" alt="Google Cloud Logo"></div>
+        <div class="swiper-slide"><img src="https://cdn.worldvectorlogo.com/logos/oracle-6.svg" alt="Oracle Logo"></div>
+        <div class="swiper-slide"><img src="https://cdn.worldvectorlogo.com/logos/salesforce-2.svg" alt="Salesforce Logo"></div>
+        <div class="swiper-slide"><img src="https://cdn.worldvectorlogo.com/logos/sap-2.svg" alt="SAP Logo"></div>
+      </div>
+      <!-- Add Navigation Buttons -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+
+  
+  <!-- Contact Section -->
+<section id="contact" class="pb-20 px-6">
+  <div class="container mx-auto fade-in-section">
+    <div class="bg-white rounded-2xl p-8 md:p-12 shadow-xl text-center">
+      <h2 class="text-4xl font-bold mb-2 text-slate-900">
+        Get In <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-blue-500">Touch</span>
+      </h2>
+      <p class="text-lg text-slate-600 mb-12">
+        Ready to transform your IT infrastructure? Contact us today for a free consultation
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Call Us Card -->
+        <div class="bg-slate-50 rounded-xl p-8 shadow-lg flex flex-col items-center border border-slate-200">
+          <div class="h-16 w-16 flex items-center justify-center rounded-full bg-gradient-to-tr from-sky-400 to-blue-500 mb-6">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.92V19a2 2 0 01-2.18 2A19.73 19.73 0 013 5.18 2 2 0 015 3h2.09a2 2 0 012 1.72c.13.76.28 1.5.46 2.22a2 2 0 01-.45 1.91l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 011.91-.45c.72.18 1.46.33 2.22.46a2 2 0 011.72 2z"/></svg>
+          </div>
+          <h3 class="text-2xl font-semibold text-slate-800 mb-2">Call Us</h3>
+          <p class="text-slate-600 mb-6">+91 8978929333</p>
+          <a href="tel:+918978929333" class="bg-gradient-to-r from-sky-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:opacity-90 transition">Call Now</a>
+        </div>
+        <!-- Email Us Card -->
+        <div class="bg-slate-50 rounded-xl p-8 shadow-lg flex flex-col items-center border border-slate-200">
+          <div class="h-16 w-16 flex items-center justify-center rounded-full bg-gradient-to-tr from-sky-400 to-blue-500 mb-6">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" ry="2" stroke-width="2"></rect><polyline points="3 7 12 13 21 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+          </div>
+          <h3 class="text-2xl font-semibold text-slate-800 mb-2">Email Us</h3>
+          <p class="text-slate-600 mb-6">info@stromextech.com</p>
+          <a href="mailto:info@stromextech.com" class="bg-gradient-to-r from-sky-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:opacity-90 transition">Send Email</a>
+        </div>
+        <!-- Locations Card -->
+        <div class="bg-slate-50 rounded-xl p-8 shadow-lg flex flex-col items-center border border-slate-200">
+          <div class="h-16 w-16 flex items-center justify-center rounded-full bg-gradient-to-tr from-sky-400 to-blue-500 mb-6">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2z"/>
+              <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold text-slate-800 mb-2">Locations</h3>
+          <p class="text-slate-600 mb-6 text-center">
+            Visakhapatnam,<br>
+            Andhra Pradesh, India
+          </p>
+          <a href="#" class="bg-gradient-to-r from-sky-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:opacity-90 transition">Get Directions</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-slate-200 text-slate-600 py-12 px-6 mt-20">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div>
+            <h3 class="text-xl font-semibold text-slate-900 mb-4">StromeX Tech</h3>
+            <p class="text-sm leading-relaxed">Dedicated to building innovative and reliable digital solutions that propel businesses forward. Your success is our mission.</p>
+            <div class="flex space-x-4 mt-6">
+                <a href="#" class="text-slate-500 hover:text-sky-600 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+                <a href="#" class="text-slate-500 hover:text-sky-600 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.09c4.27 0 6.6-3.54 6.6-6.6 0-.1 0-.2 0-.3.45-.32.84-.71 1.15-1.16-.4.18-.84.3-1.3.36.46-.27.81-.7.98-1.21-.43.25-.9.43-1.4.52-.4-.44-.97-.7-1.6-.7-1.21 0-2.2 1.01-2.2 2.25 0 .17.02.34.05.5C8.01 10.37 5.3 8.94 3.51 6c-.18.3-.28.64-.28 1.02 0 .78.39 1.47 1 1.88-.36-.01-.7-.11-1-.28v.03c0 1.09.77 2 1.79 2.2-.18.05-.36.08-.55.08-.13 0-.25-.01-.38-.04.28.91 1.11 1.57 2.09 1.75-.75.6-1.7 1-2.73 1-.18 0-.35-.01-.52-.03.97.63 2.12 1 3.36 1" /></svg></a>
+                <a href="#" class="text-slate-500 hover:text-sky-600 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.585-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.585-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.585.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44c0-.795-.645-1.44-1.441-1.44z"/></svg></a>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-xl font-semibold text-slate-900 mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+                <li><a href="#home" class="hover:text-sky-600 transition">Home</a></li>
+                <li><a href="#about" class="hover:text-sky-600 transition">About Us</a></li>
+                <li><a href="#services" class="hover:text-sky-600 transition">Services</a></li>
+                <li><a href="#contact" class="hover:text-sky-600 transition">Contact Us</a></li>
+            </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-slate-900 mb-4">Our Services</h3>
+          <ul class="space-y-2">
+            <li><a href="#services" class="hover:text-sky-600 transition">Cloud Services</a></li>
+            <li><a href="#services" class="hover:text-sky-600 transition">Computer Peripherals</a></li>
+            <li><a href="#services" class="hover:text-sky-600 transition">Networking Solutions</a></li>
+            <li><a href="#services" class="hover:text-sky-600 transition">Security Services</a></li>
+          </ul>
+        </div>
+       <div>
+            <h3 class="text-xl font-semibold text-slate-900 mb-4">Contact Us</h3>
+            <ul class="space-y-4 text-sm">
+                <!-- India Location -->
+                <li>
+                    <strong class="text-slate-800">Visakhapatnam</strong>
+                    <p class="leading-relaxed text-slate-600">
+                        Andhra Pradesh, India
+                    </p>
+                    <a href="tel:+918446444464" class="hover:text-sky-600 transition text-slate-600">+91 8446444464</a>
+                </li>
+
+                <!-- USA Locations -->
+                <li>
+                    <strong class="text-slate-800">USA</strong>
+                    <div class="mt-1 space-y-3 text-slate-600">
+                        <div>
+                            <p class="leading-relaxed">Raleigh, NC 27603</p>
+                            <a href="tel:+19197178224" class="hover:text-sky-600 transition">+1 (919) 717-8224</a>
+                        </div>
+                        <div>
+                            <p class="leading-relaxed">Sheridan, WY 82801</p>
+                            <a href="tel:+19197178224" class="hover:text-sky-600 transition">+1 (919) 717-8224</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Email -->
+                <li>
+                    <a href="mailto:info@netfotech.in" class="hover:text-sky-600 transition font-medium text-slate-600">info@netfotech.in</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="border-t border-slate-200 mt-10 pt-8 text-center text-sm text-slate-500">© 2025 StromeX Tech. All rights reserved.</div>
+</footer>
+
+<!-- Chatbot Button -->
+<button id="chatbot-toggle">
+    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+</button>
+
+<!-- Chatbot Modal -->
+<div id="chatbot-container">
+    <div class="p-4 bg-slate-50 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center space-x-3">
+            <div class="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
+            <h3 class="font-bold text-slate-800">StromeX AI Assistant</h3>
+        </div>
+        <button id="close-chatbot" class="text-slate-400 hover:text-slate-600 text-2xl font-bold">×</button>
+    </div>
+    <div id="chat-log" class="flex-1 p-4 space-y-4 overflow-y-auto"></div>
+    <div id="chat-options" class="p-4 border-t border-slate-200 grid grid-cols-2 gap-2"></div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Chatbot Logic
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const closeChatbotBtn = document.getElementById('close-chatbot');
+    const chatLog = document.getElementById('chat-log');
+    const chatOptions = document.getElementById('chat-options');
+    const conversation = {
+        'start': {
+            text: "Hi! I'm the StromeX AI Assistant. How can I help you today?",
+            options: [
+                { text: "About your services", next: 'services' },
+                { text: "How to contact you", next: 'contact' },
+                { text: "Products & Solutions", next: 'products' },
+                { text: "Connect via WhatsApp", next: 'whatsapp' }
+            ]
+        },
+        'services': {
+            text: "We offer a comprehensive suite of IT services. Which area interests you most?",
+            options: [
+                { text: "Cloud Services", next: 'service_cloud' },
+                { text: "Networking", next: 'service_networking' },
+                { text: "Security", next: 'service_security' },
+                { text: "Back to start", next: 'start' }
+            ]
+        },
+        'service_cloud': {
+            text: "Our cloud services include migration, backup solutions, and virtual servers for ultimate scalability. Would you like to see the full details?",
+            options: [
+                { text: "Yes, please!", action: 'link', value: '#services' },
+                { text: "Ask about other services", next: 'services' }
+            ]
+        },
+        'service_networking': {
+            text: "We design and implement robust LAN/WAN setups, secure wireless solutions, and provide continuous network monitoring.",
+            options: [
+                { text: "See all services", action: 'link', value: '#services' },
+                { text: "Ask about other services", next: 'services' }
+            ]
+        },
+        'service_security': {
+            text: "We protect your business with firewall management, data encryption, and regular security audits. Security is our priority.",
+            options: [
+                { text: "See all services", action: 'link', value: '#services' },
+                { text: "Ask about other services", next: 'services' }
+            ]
+        },
+        'contact': {
+            text: "We'd love to hear from you! You can find our contact details below on the page, or connect with us directly on WhatsApp.",
+            options: [
+                { text: "Take me to contact section", action: 'link', value: '#contact' },
+                { text: "Connect via WhatsApp", next: 'whatsapp' },
+                { text: "Back to start", next: 'start' }
+            ]
+        },
+        'products': {
+            text: "We provide tailored solutions for End-User Computing, AV, Data Centers, SaaS, Cloud, and offer IT Consulting services.",
+            options: [
+                { text: "Take me to solutions", action: 'link', value: '#solutions'},
+                { text: "How do I contact you?", next: 'contact' }
+            ]
+        },
+        'whatsapp': {
+            text: "Great! Click the button below to start a chat with us on WhatsApp. We look forward to talking to you!",
+            options: [
+                { text: "Open WhatsApp Chat", action: 'link', value: 'https://wa.me/918977805788' },
+                { text: "Back to start", next: 'start' }
+            ]
+        }
+    };
+    const toggleChatbot = () => { chatbotContainer.classList.toggle('open'); };
+    const addBotMessage = (text) => { const messageContainer = document.createElement('div'); messageContainer.className = 'bot-message-container'; const messageBubble = document.createElement('div'); messageBubble.className = 'bot-message'; messageBubble.textContent = text; messageContainer.appendChild(messageBubble); chatLog.appendChild(messageContainer); };
+    const addUserMessage = (text) => { const messageContainer = document.createElement('div'); messageContainer.className = 'user-message-container'; const messageBubble = document.createElement('div'); messageBubble.className = 'user-message'; messageBubble.textContent = text; messageContainer.appendChild(messageBubble); chatLog.appendChild(messageContainer); };
+    const scrollToBottom = () => { chatLog.scrollTop = chatLog.scrollHeight; };
+    const renderConversationStep = (stepKey) => { const step = conversation[stepKey]; if (!step) return; addBotMessage(step.text); chatOptions.innerHTML = ''; if (step.options) { step.options.forEach(option => { const optionButton = document.createElement('button'); optionButton.className = 'chat-option-btn'; optionButton.textContent = option.text; optionButton.addEventListener('click', () => { addUserMessage(option.text); if (option.next) { setTimeout(() => renderConversationStep(option.next), 300); } if (option.action === 'link') { if (option.value.startsWith('http')) { window.open(option.value, '_blank'); } else { document.querySelector(option.value).scrollIntoView(); } toggleChatbot(); } scrollToBottom(); }); chatOptions.appendChild(optionButton); }); } scrollToBottom(); };
+    chatbotToggle.addEventListener('click', toggleChatbot);
+    closeChatbotBtn.addEventListener('click', toggleChatbot);
+    renderConversationStep('start');
+
+    // Scroll Progress Bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    document.addEventListener('scroll', () => { const scrollTop = document.documentElement.scrollTop || document.body.scrollTop; const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (scrollTop / scrollHeight) * 100; scrollProgress.style.width = `${scrolled}%`; });
+
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenuButton = document.getElementById('close-menu-button');
+    mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.remove('hidden'); mobileMenu.classList.add('flex'); });
+    closeMenuButton.addEventListener('click', () => { mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); });
+    mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); }); });
+
+    // Fade-in & Slide-in Section on Scroll
+    const animatedElements = document.querySelectorAll('.fade-in-section, .animate-slide-in-left, .animate-slide-in-right');
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+    const observer = new IntersectionObserver((entries, observer) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }); }, observerOptions);
+    animatedElements.forEach(element => { observer.observe(element); });
+
+    // --- SWIPER INITIALIZATIONS ---
+
+    // MODIFIED: Swiper.js Hero Section Vertical Slider with new effects
+    new Swiper('.hero-swiper', {
+        direction: 'vertical',
+        loop: true,
+        mousewheel: true,
+        pagination: {
+            el: '.hero-swiper .swiper-pagination',
+            clickable: true,
+        },
+        autoplay: {
+            delay: 6000,
+            disableOnInteraction: false,
+        },
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        }
+    });
+
+    // Swiper.js Partners Section
+    new Swiper('.partner-swiper', {
+        loop: true,
+        slidesPerView: 4,
+        spaceBetween: 40,
+        autoplay: { delay: 3000, disableOnInteraction: true, pauseOnMouseEnter: true, },
+        navigation: { nextEl: '.partner-swiper .swiper-button-next', prevEl: '.partner-swiper .swiper-button-prev', },
+        breakpoints: { 320: { slidesPerView: 2, spaceBetween: 20 }, 640: { slidesPerView: 3, spaceBetween: 30 }, 1024: { slidesPerView: 5, spaceBetween: 36 }, 1280: { slidesPerView: 6, spaceBetween: 40 } },
+        allowTouchMove: true,
+        grabCursor: true,
+    });
+    
+    // Swiper.js Products & Solutions Carousel
+    new Swiper('.solutions-swiper', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
+        pagination: {
+            el: '.solutions-swiper .swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    // NEW: Scroll to next section on button click
+    const scrollDownBtn = document.getElementById('scroll-down-btn');
+    scrollDownBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector(scrollDownBtn.getAttribute('href')).scrollIntoView();
+    });
+});
+
+</script>
+</body>
+</html>

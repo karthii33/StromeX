@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Our Solutions - StromeX IT Solutions</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #38bdf8; /* Sky Blue */
+            --secondary-color: #c084fc; /* Light Purple */
+            --bg-dark: #0f172a; /* Deep Navy */
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --border-color: rgba(51, 65, 85, 0.7);
+            --text-light: #cbd5e1;
+            --text-heading: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* --- Animated Aurora Background --- */
+        .background-aurora {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; overflow: hidden;
+        }
+        .aurora-shape {
+            position: absolute; border-radius: 50%; filter: blur(150px); opacity: 0.15;
+        }
+        .aurora-1 { width: 50vw; height: 50vw; background-color: var(--primary-color); top: -20vh; left: -10vw; animation: moveAurora1 20s infinite alternate ease-in-out; }
+        .aurora-2 { width: 40vw; height: 40vw; background-color: var(--secondary-color); bottom: -15vh; right: -5vw; animation: moveAurora2 25s infinite alternate-reverse ease-in-out; }
+        @keyframes moveAurora1 { from { transform: translate(0, 0) rotate(0deg) scale(1); } to { transform: translate(10vw, 15vh) rotate(180deg) scale(1.2); } }
+        @keyframes moveAurora2 { from { transform: translate(0, 0) rotate(0deg) scale(1.3); } to { transform: translate(-15vw, -10vh) rotate(-180deg) scale(1); } }
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            padding: 1rem 2rem; position: sticky; top: 0; z-index: 1020;
+            background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color); transition: background-color 0.3s ease;
+        }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-heading); text-decoration: none; }
+        .main-nav .nav-link { color: var(--text-light); font-weight: 500; position: relative; padding: 0.5rem 0; }
+        .main-nav .nav-link:hover { color: #fff; }
+        .main-nav .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); transition: width 0.4s ease; border-radius: 2px; }
+        .main-nav .nav-link:hover::after, .main-nav .nav-link.active::after { width: 100%; }
+        .main-nav .nav-link.active { color: #fff; }
+
+        /* --- Mobile Menu --- */
+        #menu-toggle { background: none; border: none; color: #fff; font-size: 1.5rem; z-index: 1031; }
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 1030; transition: right 0.4s cubic-bezier(0.65, 0.05, 0.36, 1); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu .nav-link { font-size: 2.2rem; margin: 0.5rem 0; }
+
+        /* --- Hero Section --- */
+        .hero { color: #fff; text-align: center; padding: 7rem 2rem; background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); background-size: 400% 400%; animation: gradientBG 15s ease infinite; }
+        @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
+        .hero h1 { font-size: 3.8rem; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.3rem; max-width: 700px; margin: 1rem auto 0; font-weight: 300; }
+        
+        /* --- General Section Styling --- */
+        .section-padding { padding: 6rem 2rem; }
+        .section-title { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-heading); text-align: center; }
+        .section-subtitle { font-size: 1.2rem; color: var(--text-light); margin-bottom: 4rem; max-width: 750px; margin-left: auto; margin-right: auto; text-align: center; }
+
+        /* --- Solutions Grid & Cards --- */
+        .solutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .solution-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); padding: 2.5rem; border-radius: 18px;
+            display: flex; flex-direction: column; text-align: center;
+            height: 100%; position: relative; overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            opacity: 0; transform: translateY(30px); text-decoration: none; color: var(--text-light);
+        }
+        .solution-card.is-visible { opacity: 1; transform: translateY(0); }
+        .solution-card:hover {
+            transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            color: var(--text-light);
+        }
+        .solution-card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 18px; 
+            border: 2px solid transparent;
+            background: linear-gradient(145deg, var(--secondary-color), var(--primary-color)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out; mask-composite: exclude;
+            opacity: 0; transition: opacity 0.4s ease-in-out;
+        }
+        .solution-card:hover::before { opacity: 1; }
+        .solution-card .icon-wrapper {
+            width: 70px; height: 70px; margin: 0 auto 1.5rem;
+            background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
+            border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem; color: var(--text-heading); transition: transform 0.4s ease;
+        }
+        .solution-card:hover .icon-wrapper { transform: rotate(-15deg) scale(1.1); }
+        .solution-card h3 { font-weight: 600; font-size: 1.5rem; color: var(--text-heading); margin-bottom: 0.8rem; }
+        .solution-card p { flex-grow: 1; margin-bottom: 0; }
+
+        /* --- Our Approach Section --- */
+        .approach-list .list-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+        .approach-list .list-item i { font-size: 1.2rem; color: var(--primary-color); margin-top: 5px; }
+
+        /* --- CTA Section --- */
+        .cta-section { background-color: var(--card-bg); border-radius: 20px; border: 1px solid var(--border-color); }
+        .btn-glow {
+            border: 2px solid transparent;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)) border-box;
+            color: #fff; padding: 0.8rem 2.5rem; text-decoration: none; border-radius: 50px;
+            font-weight: 600; transition: all 0.4s ease; display: inline-block;
+        }
+        .btn-glow:hover {
+            transform: scale(1.05); box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+        }
+
+        /* --- Footer --- */
+        footer { background-color: #080a0f; padding: 4rem 2rem; border-top: 1px solid var(--border-color); }
+        footer h5 { font-weight: 700; color: #fff; margin-bottom: 1.2rem; }
+        footer p, footer a { color: var(--text-light); text-decoration: none; transition: color 0.3s ease; }
+        footer a:hover { color: var(--primary-color); }
+        
+        @media (max-width: 991.98px) {
+            .main-header { padding: 1rem 1.5rem; }
+            .hero h1 { font-size: 3rem; }
+            .section-title { font-size: 2.5rem; }
+            .solutions-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-aurora">
+        <div class="aurora-shape aurora-1"></div>
+        <div class="aurora-shape aurora-2"></div>
+    </div>
+
+    <header class="main-header d-flex justify-content-between align-items-center">
+        <a href="/" class="logo">StromeX Tech</a>
+        <nav class="main-nav d-none d-lg-block">
+            <ul class="nav gap-4">
+                <li class="nav-item"><a class="nav-link" href="/">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/solution">Solutions</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+        <button id="menu-toggle" class="d-lg-none"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu-container">
+        <nav class="main-nav"><ul class="nav flex-column text-center">
+            <li class="nav-item"><a class="nav-link" href="/">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/solution">Solutions</a></li>
+            <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
+        </ul></nav>
+    </div>
+
+    <main>
+        <section class="hero">
+            <h1>Tailored IT Solutions</h1>
+            <p>Empowering your business with strategic, secure, and scalable technology frameworks built for the future.</p>
+        </section>
+
+        <section id="solutions" class="section-padding">
+            <div class="container">
+                <h2 class="section-title">Our Comprehensive Solutions</h2>
+                <p class="section-subtitle">We deliver end-to-end solutions that drive efficiency, enhance security, and foster growth for your enterprise.</p>
+                
+                <div class="solutions-grid">
+                    <a href="/end-user-computing" class="solution-card">
+                        <div class="icon-wrapper"><i class="fas fa-desktop"></i></div>
+                        <h3>End-User Computing</h3>
+                        <p>Empowering users with secure desktops, VDI, and endpoint management for enhanced productivity and mobility across your organization.</p>
+                    </a>
+                    <a href="/audio-video-solutions" class="solution-card">
+                        <div class="icon-wrapper"><i class="fas fa-video"></i></div>
+                        <h3>Audio & Video Solutions</h3>
+                        <p>Professional AV setups for seamless meetings, engaging digital signage, and smart collaboration experiences in any environment.</p>
+                    </a>
+                    <a href="/data-center-infrastructure" class="solution-card">
+                        <div class="icon-wrapper"><i class="fas fa-server"></i></div>
+                        <h3>Data Center Infrastructure</h3>
+                        <p>Expert design and deployment of high-performance data centers, optimizing power, cooling, and rack solutions for reliability.</p>
+                    </a>
+                    <a href="/software-saas-applications" class="solution-card">
+                        <div class="icon-wrapper"><i class="fas fa-cubes"></i></div>
+                        <h3>Software & SaaS Applications</h3>
+                        <p>Enterprise-grade software and SaaS applications to streamline operations, enhance communication, and bolster security.</p>
+                    </a>
+                    <a href="/cloud-colocation-services" class="solution-card">
+                        <div class="icon-wrapper"><i class="fas fa-cloud"></i></div>
+                        <h3>Cloud & Co-Location</h3>
+                        <p>Flexible cloud hosting, hybrid infrastructure, and secure colocation services for unparalleled business agility and scalability.</p>
+                    </a>
+                    <a href="/it-consulting-managed-services" class="solution-card">
+                        <div class="icon-wrapper"><i class="fas fa-headset"></i></div>
+                        <h3>Consulting & Managed Services</h3>
+                        <p>Strategic IT guidance, proactive monitoring, and full-service support to help your tech stack evolve efficiently and securely.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding" id="approach">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <h2 class="section-title text-start">Our Approach</h2>
+                        <p class="section-subtitle text-start ps-0 ms-0" style="margin-bottom: 2rem;">We believe in a partnership model. Your success is our success. Our process is transparent, collaborative, and focused on delivering tangible business value.</p>
+                        <div class="approach-list">
+                            <div class="list-item"><i class="fas fa-check-circle"></i><div><strong>Discovery & Analysis:</strong> We start by deeply understanding your goals, challenges, and existing infrastructure.</div></div>
+                            <div class="list-item"><i class="fas fa-check-circle"></i><div><strong>Strategic Design:</strong> We architect a bespoke solution that is scalable, secure, and perfectly aligned with your objectives.</div></div>
+                            <div class="list-item"><i class="fas fa-check-circle"></i><div><strong>Seamless Implementation:</strong> Our expert team manages the entire deployment process, ensuring minimal disruption and a smooth transition.</div></div>
+                            <div class="list-item"><i class="fas fa-check-circle"></i><div><strong>Ongoing Support & Optimization:</strong> We provide continuous management and support to ensure your technology performs optimally.</div></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1740&q=80" class="img-fluid rounded-3" alt="Team collaborating on a project">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <div class="container">
+                <div class="cta-section text-center p-5">
+                    <h2 class="section-title mb-3">Ready to Transform Your IT?</h2>
+                    <p class="section-subtitle mt-0 mx-auto">Let's discuss how StromeX can architect the perfect solution for your business needs.</p>
+                    <a href="/contact" class="btn-glow">Talk to Our Experts</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h5>Contact Us</h5>
+                    <p><strong>CORPORATE OFFICE:</strong><br>
+                        Flat no 201 Krishna Nagar, Behind Dronam Raju Kalyana Mandapam Sri Harshita Nylayam Visakhapatnam Rural Madhurawada 530048, Andhrapradesh
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-3">
+                    <h5>Reach Out</h5>
+                    <p><strong>Phone:</strong> <a href="tel:+917996023456">+91-79960 23456</a><br>
+                    <strong>Email:</strong> <a href="mailto:Hello@stromex.in">Hello@stromex.in</a></p>
+                    <p class="mt-4">© 2025 StromeX IT Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Mobile Menu Logic ---
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu-container');
+            const menuIcon = menuToggle.querySelector('i');
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                menuIcon.classList.toggle('fa-bars');
+                menuIcon.classList.toggle('fa-times');
+            });
+
+            // --- Animate elements on scroll with IntersectionObserver ---
+            const animatedElements = document.querySelectorAll('.solution-card, [data-aos]');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // For cards, add a staggered delay
+                        if (entry.target.classList.contains('solution-card')) {
+                            setTimeout(() => {
+                                entry.target.classList.add('is-visible');
+                            }, (index % 3) * 150);
+                        } else {
+                            // For AOS-like elements, just add the class
+                            entry.target.classList.add('is-visible');
+                        }
+                        observer.unobserve(entry.target); // Animate only once
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

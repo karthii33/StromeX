@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Center Infrastructure - StromeX Tech</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    :root {
+        --gradient-start: #38bdf8; /* sky-400 */
+        --gradient-end: #3b82f6; /* blue-500 */
+    }
+    body {
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f8fafc; /* slate-50 */
+        color: #334155; /* slate-700 */
+        overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    }
+    .gradient-text {
+        background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
+    .partner-logo {
+        max-height: 55px; /* Adjusted for a cleaner look */
+        width: auto;
+        margin: 1rem;
+        filter: grayscale(100%);
+        opacity: 0.7;
+        transition: all 0.3s ease-in-out;
+    }
+    .partner-logo:hover {
+        filter: grayscale(0%);
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    
+    /* --- Animation Styles --- */
+    .animate-section {
+        opacity: 0;
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        will-change: opacity, transform;
+    }
+    .animate-fade-in {
+        transform: translateY(30px);
+    }
+    .animate-slide-in-left {
+        transform: translateX(-50px);
+    }
+    .animate-slide-in-right {
+        transform: translateX(50px);
+    }
+
+    /* The state when the element becomes visible */
+    .is-visible {
+        opacity: 1;
+        transform: translate(0, 0);
+        transition-delay: var(--stagger-delay, 0s);
+    }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-700">
+
+<!-- Header -->
+<header class="sticky top-0 left-0 w-full z-50 p-4 bg-white/70 backdrop-blur-lg border-b border-slate-200/80">
+  <nav class="container mx-auto px-6 flex items-center justify-between">
+    <a href="/" class="flex items-center space-x-3 text-2xl font-bold text-slate-800 hover:text-sky-500 transition duration-300">
+      <img src="/static/images/stlog1.png" alt="StromeX Tech Logo" class="w-10 h-10 object-contain" />
+      <span>StromeX Tech</span>
+    </a>
+    <div class="hidden md:flex items-center space-x-8 text-base font-medium">
+      <a href="/#about" class="relative text-slate-600 hover:text-sky-600 transition">About</a>
+      <a href="/#services" class="relative text-slate-600 hover:text-sky-600 transition">Services</a>
+      <a href="/products" class="relative text-slate-600 hover:text-sky-600 transition">Products And Solutions</a>
+      <a href="/blog" class="relative text-slate-600 hover:text-sky-600 transition">Blog</a>
+      <a href="/contact" class="relative text-slate-600 hover:text-sky-600 transition">Contact Us</a>
+    </div>
+    <div class="md:hidden">
+      <button id="mobile-menu-button" class="text-slate-600 hover:text-sky-600 focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6H4" /></svg>
+      </button>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-sm z-[60] flex flex-col items-center justify-center space-y-8 text-center">
+      <button id="close-menu-button" class="absolute top-8 right-8 text-slate-500 hover:text-slate-800">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+      <a href="/#about" class="text-3xl font-bold text-slate-800 hover:text-sky-500">About</a>
+      <a href="/blog" class="text-3xl font-bold text-slate-800 hover:text-sky-500">Blog</a>
+      <a href="/#services" class="text-3xl font-bold text-slate-800 hover:text-sky-500">Services</a>
+      <a href="/products" class="text-3xl font-bold text-slate-800 hover:text-sky-500">Solutions</a>
+      <a href="/contact" class="text-3xl font-bold text-slate-800 hover:text-sky-500">Contact Us</a>
+  </div>
+</header>
+
+<main>
+
+    <!-- Hero Section -->
+    <section class="relative bg-slate-800 py-24 md:py-32">
+        <div class="absolute inset-0">
+            <img src="/static/images/audioVideo/hero.png" alt="Server racks in a data center" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
+        </div>
+        <div class="container mx-auto px-6 relative z-10 text-center text-white">
+            <nav class="text-sm font-medium text-slate-300 mb-4 animate-section animate-fade-in is-visible">
+                <a href="/" class="hover:text-sky-400">Home</a>
+                <span class="mx-2">/</span>
+                <a href="/products" class="hover:text-sky-400">Products & Solutions</a>
+                <span class="mx-2">/</span>
+                <span class="text-white">Data Center Infrastructure</span>
+            </nav>
+            <h1 class="text-4xl md:text-6xl font-black mb-4 animate-section animate-fade-in is-visible" style="--stagger-delay: 150ms;">Data Center Infrastructure</h1>
+            <p class="text-lg md:text-xl text-slate-200 max-w-3xl mx-auto animate-section animate-fade-in is-visible" style="--stagger-delay: 300ms;">
+                Design and deployment of high-performance data centers with robust power, cooling, and rack solutions.
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="py-20 md:py-28 px-6">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="animate-section animate-slide-in-left">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+                        Robust <span class="gradient-text">Data Center</span> Solutions
+                    </h2>
+                    <p class="text-lg text-slate-600 mb-4">
+                        With a customer-centric focus, StromeX addresses complex data center infrastructure requirements to drive the best value on your investments. We are a one-stop solution provider for all hardware & software needs.
+                    </p>
+                    <p class="text-slate-600">
+                        Through strategic partnerships with top technology companies like <strong class="font-semibold text-sky-600">Lenovo, Cisco, and VMware</strong>, and our team of OEM-certified resources, StromeX is perfectly positioned to consult, design, and deploy data center solutions with quick turnaround and minimal business impact.
+                    </p>
+                </div>
+                <div class="animate-section animate-slide-in-right">
+                    <img src="/static/images/data/over.png" alt="Data Center Infrastructure diagram" class="rounded-2xl shadow-xl w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Detailed Solutions Section -->
+    <section class="py-20 md:py-28 px-6 bg-white">
+        <div class="container mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16 animate-section animate-fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Our Core Infrastructure Offerings</h2>
+                <p class="text-lg text-slate-600">
+                    A complete suite of services and products to build and maintain a modern, efficient, and secure data center.
+                </p>
+            </div>
+            
+            <div class="space-y-24">
+                <!-- Solution 1: Server -->
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center animate-section animate-fade-in">
+                    <div class="order-2 md:order-1">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3">Server Solutions</h3>
+                        <p class="text-slate-600 mb-4">From server hardware sizing based on needs analysis to final implementation, we support customers with customized solutions for diverse IT workloads like Web, File, Database, and Virtual Servers.</p>
+                        <p class="font-medium text-slate-500"><strong>Partners:</strong> Lenovo, HPE, Dell</p>
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <img src="/static/images/data/p1.png" alt="Server Hardware" class="w-full h-auto rounded-2xl shadow-lg">
+                    </div>
+                </div>
+
+                <!-- Solution 2: Networking -->
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center animate-section animate-fade-in">
+                    <div>
+                        <img src="/static/images/data/p2.png" alt="Networking Hardware" class="w-full h-auto rounded-2xl shadow-lg">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3">Networking Infrastructure</h3>
+                        <p class="text-slate-600 mb-4">Our practice covers the entire gamut of networking requirements—from network design to configuring and deploying hardware like Ethernet switches (Managed & Unmanaged) and Wireless Access Points.</p>
+                        <p class="font-medium text-slate-500"><strong>Partners:</strong> Cisco Meraki, Cisco & Aruba</p>
+                    </div>
+                </div>
+                
+                <!-- Solution 3: SDI -->
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center animate-section animate-fade-in">
+                    <div class="order-2 md:order-1">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3">Software Defined Infrastructure (SDI)</h3>
+                        <p class="text-slate-600 mb-4">The technology landscape is shifting to software-defined compute, storage, and networking. We consult and deploy HCI solutions to help reduce our customers' IT footprint, boosting efficiency and scalability.</p>
+                        <p class="font-medium text-slate-500"><strong>Partners:</strong> Nutanix, VMware & Microsoft</p>
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <img src="/static/images/data/p3.png" class="w-full h-auto rounded-2xl shadow-lg">
+                    </div>
+                </div>
+                
+                <!-- More solutions can be added here following the same pattern -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="py-20 md:py-28 px-6">
+        <div class="container mx-auto animate-section animate-fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-16">
+                Our Trusted <span class="gradient-text">Data Center Partners</span>
+            </h2>
+            <div class="flex flex-wrap justify-center items-center gap-8">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Lenovo_logo_2015.svg" class="partner-logo" alt="Lenovo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Dell_EMC_logo.svg" class="partner-logo" alt="Dell EMC">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Cisco_logo.svg" class="partner-logo" alt="Cisco">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Hewlett_Packard_Enterprise_logo.svg" class="partner-logo" alt="HPE">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Fortinet_logo.svg" class="partner-logo" alt="Fortinet">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Nutanix_logo.svg" class="partner-logo" alt="Nutanix">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/VMware_logo.svg" class="partner-logo" alt="VMware">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" class="partner-logo" alt="Microsoft">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Red_Hat_logo.svg" class="partner-logo" alt="Red Hat">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-white">
+        <div class="container mx-auto px-6 py-20">
+            <div class="bg-gradient-to-r from-sky-500 to-blue-600 rounded-2xl p-10 md:p-16 text-center text-white animate-section animate-fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Optimize Your Data Center?</h2>
+                <p class="text-lg text-sky-100 mb-8 max-w-2xl mx-auto">
+                    Connect with our experts to design, deploy, and manage a robust data center infrastructure tailored to your business needs.
+                </p>
+                <a href="/contact" class="inline-block bg-white text-blue-600 font-semibold py-3 px-8 rounded-full shadow-lg text-lg transition hover:bg-slate-100 hover:scale-105">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-slate-800 text-slate-300 py-12 px-6">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div>
+            <h3 class="text-xl font-semibold text-white mb-4">StromeX Tech</h3>
+            <p class="text-sm leading-relaxed text-slate-400">Dedicated to building innovative and reliable digital solutions that propel businesses forward. Your success is our mission.</p>
+        </div>
+        <div>
+            <h3 class="text-xl font-semibold text-white mb-4">Quick Links</h3>
+            <ul class="space-y-2 text-slate-400">
+                <li><a href="/" class="hover:text-sky-400 transition">Home</a></li>
+                <li><a href="/#about" class="hover:text-sky-400 transition">About Us</a></li>
+                <li><a href="/products" class="hover:text-sky-400 transition">Services</a></li>
+                <li><a href="/contact" class="hover:text-sky-400 transition">Contact Us</a></li>
+            </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-white mb-4">Our Solutions</h3>
+          <ul class="space-y-2 text-slate-400">
+            <li><a href="/end-user-computing" class="hover:text-sky-400 transition">End-User Computing</a></li>
+            <li><a href="/audio-video-solutions" class="hover:text-sky-400 transition">Audio & Video Solutions</a></li>
+            <li><a href="/data-center-infrastructure" class="hover:text-sky-400 transition">Data Center</a></li>
+            <li><a href="/it-consulting-managed-services" class="hover:text-sky-400 transition">Managed Services</a></li>
+          </ul>
+        </div>
+       <div>
+            <h3 class="text-xl font-semibold text-white mb-4">Contact Us</h3>
+            <ul class="space-y-2 text-slate-400">
+                <li>
+                    <p>
+                        Flat no 201 Krishna Nagar, Visakhapatnam, 530048, Andhrapradesh
+                    </p>
+                </li>
+                 <li>
+                    <strong>Phone:</strong> <a href="tel:+917996023456" class="hover:text-sky-400 transition">+91-79960 23456</a>
+                </li>
+                <li>
+                    <strong>Email:</strong> <a href="mailto:Hello@stromex.in" class="hover:text-sky-400 transition">Hello@stromex.in</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="border-t border-slate-700 mt-10 pt-8 text-center text-sm text-slate-400">© 2025 StromeX Tech. All rights reserved.</div>
+</footer>
+
+<script>
+    // --- Mobile Menu Toggle ---
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenuButton = document.getElementById('close-menu-button');
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+        });
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+        });
+    }
+
+    // --- Scroll Animation Logic ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('.animate-section');
+        if (!animatedElements.length) return;
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+    });
+</script>
+
+</body>
+</html>

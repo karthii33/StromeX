@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>IT Consulting & Managed Services | StromeX IT Solutions</title>
+
+    <!-- Poppins Font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS (Animate on Scroll) Library for cool animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        // Tailwind CSS Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        // Main brand colors
+                        'primary-color': '#38bdf8', /* Vibrant Sky Blue */
+                        'secondary-color': '#c026d3', /* Vibrant Fuchsia */
+
+                        // Dark Theme Palette (Default for this page)
+                        'bg-dark': '#0a0f18', /* Deep Onyx Background */
+                        'bg-slate': '#1f2937', /* Lighter Slate for Cards/Sections */
+                        'text-light': '#f0f2f5', /* Off-white for headings */
+                        'text-muted': '#a0aec0', /* Muted gray for body text */
+                        'border-color': 'rgba(255, 255, 255, 0.1)',
+                        'glow-primary': 'rgba(56, 189, 248, 0.5)',
+                        'glow-secondary': 'rgba(192, 38, 211, 0.5)',
+                        'footer-bg': '#05080e', /* Even darker for footer */
+                        'card-paragraph-light': '#cdd6e1', /* Brighter paragraph text for readability in cards */
+                        'card-hover-bg': '#273244', /* Background color on card hover */
+                        'cta-text-gradient-start': '#fff',
+                        'cta-text-gradient-end': '#c4b5fd',
+                        'header-bg-opacity': 'rgba(17, 24, 39, 0.8)', // Header background with opacity
+                    },
+                    keyframes: {
+                        gradientFlow: {
+                            '0%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                            '100%': { 'background-position': '0% 50%' },
+                        },
+                        // Removed kenBurns keyframe as it's no longer needed for the hero background
+                        pulseShadow: {
+                            '0%': { 'box-shadow': '0 0 0 0 rgba(0, 123, 255, 0.4)' },
+                            '70%': { 'box-shadow': '0 0 0 15px rgba(0, 123, 255, 0)' },
+                            '100%': { 'box-shadow': '0 0 0 0 rgba(0, 123, 255, 0)' },
+                        }
+                    },
+                    animation: {
+                        'gradient-flow': 'gradientFlow 15s ease infinite',
+                        // Removed 'ken-burns' from animation as it's no longer needed
+                        'pulse-shadow': 'pulseShadow 2s infinite',
+                    }
+                }
+            },
+        }
+    </script>
+    <style>
+        /* Custom CSS for navigation underline (pseudo-element) */
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--tw-primary-color), var(--tw-secondary-color));
+            box-shadow: 0 0 8px var(--tw-glow-primary);
+            transition: width 0.3s ease-in-out;
+            border-radius: 2px;
+        }
+        nav ul li a:hover::after, nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section Background (now a solid gradient, no image) */
+        .hero-section {
+            background: linear-gradient(to bottom right, var(--tw-bg-dark), var(--tw-bg-slate)); /* Solid gradient */
+            position: relative; /* Keep relative for z-index of content */
+            color: #fff;
+            padding: 8rem 2rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Removed hero-section::before for background image */
+        .hero-section::before {
+            /* This pseudo-element is now empty or can be removed if not needed for other effects */
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -2; /* Keep it behind content */
+            /* Removed background-image and animation */
+        }
+
+        /* Adjusted hero-section::after to be the main background color if desired, or removed if not needed */
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: transparent; /* Changed to transparent, as main background is now on .hero-section */
+            z-index: -1;
+        }
+
+        /* Image glow effect for intro-section */
+        .intro-section .img-glow {
+            position: absolute;
+            top: -4px; left: -4px; right: -4px; bottom: -4px;
+            background: linear-gradient(120deg, var(--tw-primary-color), var(--tw-secondary-color));
+            border-radius: 16px;
+            filter: blur(15px);
+            opacity: 0.5;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+        .intro-section .img-container:hover .img-glow {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="font-poppins m-0 bg-bg-dark text-text-muted leading-relaxed scroll-smooth">
+
+    <header class="flex flex-col md:flex-row justify-between items-center px-4 md:px-12 py-4
+                   sticky top-0 z-50 bg-header-bg-opacity backdrop-blur-md
+                   border-b border-border-color
+                   shadow-md transition-all duration-300 ease">
+        <a href="/" class="text-3xl font-bold no-underline tracking-tighter mb-4 md:mb-0
+                           bg-gradient-to-r from-primary-color to-secondary-color
+                           bg-clip-text text-transparent">StromeX Tech</a>
+        <nav class="flex items-center">
+            <ul class="list-none flex flex-wrap justify-center gap-x-6 gap-y-2 m-0 p-0">
+                <li><a href="#about" class="text-text-light font-medium relative pb-2
+                                            hover:text-white hover:drop-shadow-[0_0_10px_var(--tw-glow-primary)]
+                                            transition-colors duration-300 ease">About</a></li>
+                <li><a href="/blog" class="text-text-light font-medium relative pb-2
+                                            hover:text-white hover:drop-shadow-[0_0_10px_var(--tw-glow-primary)]
+                                            transition-colors duration-300 ease">Blog</a></li>
+                <li><a href="/services" class="text-text-light font-medium relative pb-2
+                                               hover:text-white hover:drop-shadow-[0_0_10px_var(--tw-glow-primary)]
+                                               transition-colors duration-300 ease">Services</a></li>
+                <li><a href="/solution" class="text-text-light font-medium relative pb-2 active
+                                               hover:text-white hover:drop-shadow-[0_0_10px_var(--tw-glow-primary)]
+                                               transition-colors duration-300 ease">Solutions</a></li>
+                <li><a href="/products" class="text-text-light font-medium relative pb-2
+                                               hover:text-white hover:drop-shadow-[0_0_10px_var(--tw-glow-primary)]
+                                               transition-colors duration-300 ease">Products</a></li>
+                <li><a href="/contact" class="text-text-light font-medium relative pb-2
+                                               hover:text-white hover:drop-shadow-[0_0_10px_var(--tw-glow-primary)]
+                                               transition-colors duration-300 ease">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section relative text-white py-32 px-8 text-center overflow-hidden">
+        <div class="container mx-auto relative z-10">
+            <h1 class="text-6xl font-bold text-text-light mb-4
+                       drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] drop-shadow-[0_0_25px_var(--tw-glow-primary)]
+                       md:text-5xl sm:text-4xl" data-aos="fade-up">IT Consulting & Managed Services</h1>
+            <p class="text-2xl max-w-3xl mx-auto mt-4 font-light text-text-muted
+                      md:text-xl sm:text-lg" data-aos="fade-up" data-aos-delay="200">Strategic IT guidance, monitoring, and full-service support to help your tech stack evolve efficiently.</p>
+        </div>
+    </section>
+
+    <section class="section intro-section py-24 px-8 bg-bg-dark">
+        <div class="container mx-auto">
+            <h2 class="section-title text-4xl font-bold text-center mb-16 md:text-3xl
+                       bg-gradient-to-r from-primary-color to-secondary-color bg-clip-text text-transparent" data-aos="fade-up">End-to-End IT Consulting & Managed Services</h2>
+            <div class="flex flex-col lg:flex-row items-center mb-12">
+                <div class="w-full lg:w-5/12 mb-12 lg:mb-0" data-aos="fade-right">
+                    <div class="img-container relative">
+                        <img src="https://static.wixstatic.com/media/394e97_e194941f94f34ab7be69d6333d4e1bbf~mv2.jpg/v1/fill/w_751,h_362,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/394e97_e194941f94f34ab7be69d6333d4e1bbf~mv2.jpg" alt="IT Consulting" class="w-full h-auto rounded-xl shadow-xl relative z-20"
+                        onerror="this.onerror=null;this.src='https://placehold.co/751x362/1f2937/a0aec0?text=IT+Consulting';">
+                        <div class="img-glow"></div>
+                    </div>
+                </div>
+                <div class="w-full lg:w-7/12 lg:pl-16" data-aos="fade-left" data-aos-delay="200">
+                    <h3 class="text-3xl font-semibold text-text-light mb-4">IT Consulting & Managed Services</h3>
+                    <p class="text-xl font-light mb-4 text-text-muted">
+                        At <strong class="font-semibold text-primary-color">StromeX</strong>, we prioritize delivering the experience customers expect from a trusted managed services partner responsible for their critical IT assets. Our team is committed to providing end-to-end consulting, seamless post-sale deployment, and reliable asset management—all with minimal downtime and strict adherence to SLAs.
+                    </p>
+                    <p class="text-lg text-text-muted mb-4">Our offerings include:</p>
+                    <ul class="list-disc list-inside pl-4 text-lg text-text-muted">
+                        <li class="mb-2">Pan-India break-fix services for IT assets</li>
+                        <li class="mb-2">Deployment of certified professionals for project needs</li>
+                        <li class="mb-2">Support for IT asset relocation and movement</li>
+                        <li>Buyback and E-waste handling with compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section service-offerings-section py-24 px-8 bg-bg-slate">
+        <div class="container mx-auto">
+            <h2 class="section-title text-4xl font-bold text-center mb-16 md:text-3xl
+                       bg-gradient-to-r from-primary-color to-secondary-color bg-clip-text text-transparent" data-aos="fade-up">Our Managed IT Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div class="col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card bg-bg-dark rounded-xl shadow-md h-full flex flex-col text-center
+                                transition-transform duration-300 ease hover:-translate-y-2 hover:shadow-lg hover:bg-card-hover-bg">
+                        <img src="https://static.wixstatic.com/media/394e97_bbe0130f16aa4346b1ad042881507374~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/177.png" class="w-full h-48 object-contain p-6 bg-gray-900 border-b border-border-color rounded-t-xl" alt="IT Consulting"
+                        onerror="this.onerror=null;this.src='https://placehold.co/380x347/0a0f18/f0f2f5?text=IT+Consulting';">
+                        <div class="card-body p-6 flex flex-col flex-grow">
+                            <h5 class="text-2xl font-semibold text-text-light mb-3">IT Consulting & Deployment</h5>
+                            <p class="text-base text-text-muted flex-grow">
+                                <strong class="font-semibold text-primary-color">Value-Add:</strong> Our expert pre-sales team evaluates customer requirements and crafts high-ROI IT solutions, while supporting timely and successful implementation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card bg-bg-dark rounded-xl shadow-md h-full flex flex-col text-center
+                                transition-transform duration-300 ease hover:-translate-y-2 hover:shadow-lg hover:bg-card-hover-bg">
+                        <img src="https://static.wixstatic.com/media/394e97_25e59a37007d408ba04cadd9192d0fbd~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/172.png" class="w-full h-48 object-contain p-6 bg-gray-900 border-b border-border-color rounded-t-xl" alt="Resident Engineers"
+                        onerror="this.onerror=null;this.src='https://placehold.co/380x347/0a0f18/f0f2f5?text=Resident+Engineers';">
+                        <div class="card-body p-6 flex flex-col flex-grow">
+                            <h5 class="text-2xl font-semibold text-text-light mb-3">Resident Engineers</h5>
+                            <p class="text-base text-text-muted flex-grow">
+                                <strong class="font-semibold text-primary-color">Value-Add:</strong> Skilled engineers available on contract for projects, IT workspace support, and management of data center, network, or cloud environments.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card bg-bg-dark rounded-xl shadow-md h-full flex flex-col text-center
+                                transition-transform duration-300 ease hover:-translate-y-2 hover:shadow-lg hover:bg-card-hover-bg">
+                        <img src="https://static.wixstatic.com/media/394e97_539cde2917af4e9f8415e7873c41a8f0~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/170.png" class="w-full h-48 object-contain p-6 bg-gray-900 border-b border-border-color rounded-t-xl" alt="IT Asset Relocation"
+                        onerror="this.onerror=null;this.src='https://placehold.co/380x347/0a0f18/f0f2f5?text=IT+Asset+Relocation';">
+                        <div class="card-body p-6 flex flex-col flex-grow">
+                            <h5 class="text-2xl font-semibold text-text-light mb-3">IT Asset Relocation</h5>
+                            <p class="text-base text-text-muted flex-grow">
+                                <strong class="font-semibold text-primary-color">Value-Add:</strong> Complete asset move services including planning, de-installation, secure logistics, and re-deployment at the new location.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card bg-bg-dark rounded-xl shadow-md h-full flex flex-col text-center
+                                transition-transform duration-300 ease hover:-translate-y-2 hover:shadow-lg hover:bg-card-hover-bg">
+                        <img src="https://static.wixstatic.com/media/394e97_5b5f87103f5d4f52a608e1553239e9b5~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/175.png" class="w-full h-48 object-contain p-6 bg-gray-900 border-b border-border-color rounded-t-xl" alt="IT Managed Services"
+                        onerror="this.onerror=null;this.src='https://placehold.co/380x347/0a0f18/f0f2f5?text=IT+Managed+Services';">
+                        <div class="card-body p-6 flex flex-col flex-grow">
+                            <h5 class="text-2xl font-semibold text-text-light mb-3">IT Managed Services</h5>
+                            <p class="text-base text-text-muted flex-grow">
+                                <strong class="font-semibold text-primary-color">Value-Add:</strong> AMC or on-demand services covering L1/L2 help desk, lifecycle & CMDB management, and network support.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card bg-bg-dark rounded-xl shadow-md h-full flex flex-col text-center
+                                transition-transform duration-300 ease hover:-translate-y-2 hover:shadow-lg hover:bg-card-hover-bg">
+                        <img src="https://static.wixstatic.com/media/394e97_8ad77ac35d6548229ff25107405c44f1~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/171.png" class="w-full h-48 object-contain p-6 bg-gray-900 border-b border-border-color rounded-t-xl" alt="Break-Fix Services"
+                        onerror="this.onerror=null;this.src='https://placehold.co/380x347/0a0f18/f0f2f5?text=Break-Fix+Services';">
+                        <div class="card-body p-6 flex flex-col flex-grow">
+                            <h5 class="text-2xl font-semibold text-text-light mb-3">Pan-India Break-Fix</h5>
+                            <p class="text-base text-text-muted flex-grow">
+                                <strong class="font-semibold text-primary-color">Value-Add:</strong> Nationwide support with full logistics, inventory control, and rapid engineer deployment for diagnosis and hardware repair.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card bg-bg-dark rounded-xl shadow-md h-full flex flex-col text-center
+                                transition-transform duration-300 ease hover:-translate-y-2 hover:shadow-lg hover:bg-card-hover-bg">
+                        <img src="https://static.wixstatic.com/media/394e97_312b0f03ee094858bfb93f0df0912597~mv2.png/v1/crop/x_0,y_47,w_1080,h_986/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/168.png" class="w-full h-48 object-contain p-6 bg-gray-900 border-b border-border-color rounded-t-xl" alt="IT Asset Buyback"
+                        onerror="this.onerror=null;this.src='https://placehold.co/380x347/0a0f18/f0f2f5?text=IT+Asset+Buyback';">
+                        <div class="card-body p-6 flex flex-col flex-grow">
+                            <h5 class="text-2xl font-semibold text-text-light mb-3">Buyback & E-Waste Services</h5>
+                            <p class="text-base text-text-muted flex-grow">
+                                <strong class="font-semibold text-primary-color">Value-Add:</strong> Secure e-waste disposal through certified recyclers and fair-value IT asset buybacks aligned with environmental policies.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section partners-section py-24 px-8 bg-bg-dark">
+        <div class="container mx-auto">
+            <h2 class="section-title text-4xl font-bold text-center mb-16 md:text-3xl
+                       bg-gradient-to-r from-primary-color to-secondary-color bg-clip-text text-transparent" data-aos="fade-up">Our Key Partners</h2>
+            <div class="flex flex-wrap justify-center items-center">
+                <img src="https://static.wixstatic.com/media/394e97_062ab4276e4f46b2bac8c4e21524dc81~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Crestron.jpg" class="max-h-16 w-auto m-5
+                            filter grayscale brightness-150 contrast-80 opacity-60
+                            transition-all duration-300 ease-in-out
+                            hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:opacity-100 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" alt="Crestron"
+                            onerror="this.onerror=null;this.src='https://placehold.co/100x50/1f2937/a0aec0?text=Crestron';">
+                <img src="https://static.wixstatic.com/media/394e97_084d95b6796441fea5a10aaec5b1c071~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Poly.jpg" class="max-h-16 w-auto m-5
+                            filter grayscale brightness-150 contrast-80 opacity-60
+                            transition-all duration-300 ease-in-out
+                            hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:opacity-100 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" alt="Poly"
+                            onerror="this.onerror=null;this.src='https://placehold.co/100x50/1f2937/a0aec0?text=Poly';">
+                <img src="https://static.wixstatic.com/media/394e97_f3b4ffd7e63d4b448953b966a2244c77~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logitech.jpg" class="max-h-16 w-auto m-5
+                            filter grayscale brightness-150 contrast-80 opacity-60
+                            transition-all duration-300 ease-in-out
+                            hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:opacity-100 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" alt="Logitech"
+                            onerror="this.onerror=null;this.src='https://placehold.co/100x50/1f2937/a0aec0?text=Logitech';">
+                <img src="https://static.wixstatic.com/media/394e97_30c6de1063a9404c9946905ae30fb289~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/CISCO.jpg" class="max-h-16 w-auto m-5
+                            filter grayscale brightness-150 contrast-80 opacity-60
+                            transition-all duration-300 ease-in-out
+                            hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:opacity-100 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" alt="CISCO"
+                            onerror="this.onerror=null;this.src='https://placehold.co/100x50/1f2937/a0aec0?text=Cisco';">
+                <img src="https://static.wixstatic.com/media/394e97_5f6efe07ee5c41cf9eff0534c0c472cc~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Lenovo.jpg" class="max-h-16 w-auto m-5
+                            filter grayscale brightness-150 contrast-80 opacity-60
+                            transition-all duration-300 ease-in-out
+                            hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:opacity-100 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" alt="Lenovo"
+                            onerror="this.onerror=null;this.src='https://placehold.co/100x50/1f2937/a0aec0?text=Lenovo';">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Dell_logo_2016.svg" class="max-h-16 w-auto m-5
+                            filter grayscale brightness-150 contrast-80 opacity-60
+                            transition-all duration-300 ease-in-out
+                            hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:opacity-100 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" alt="Dell"
+                            onerror="this.onerror=null;this.src='https://placehold.co/100x50/1f2937/a0aec0?text=Dell';">
+            </div>
+        </div>
+    </section>
+
+    <section class="section call-to-action-section py-24 px-8 text-center text-white relative overflow-hidden
+                    bg-gradient-to-br from-[#0a0f18] via-[#1e293b] to-[#0c4a6e] animate-gradient-flow">
+        <div class="container mx-auto relative z-10" data-aos="zoom-in">
+            <h2 class="text-4xl font-bold text-text-light mb-4 md:text-3xl
+                       bg-gradient-to-r from-cta-text-gradient-start to-cta-text-gradient-end bg-clip-text text-transparent">Ready to Elevate Your IT Infrastructure?</h2>
+            <p class="text-text-muted mb-8">Contact our experts to discover how our IT consulting and managed services can transform your business operations.</p>
+            <a href="/contact" class="inline-block bg-gradient-to-r from-primary-color to-secondary-color
+                                      border-none rounded-full px-12 py-4 font-semibold text-lg text-white uppercase tracking-wide
+                                      transition-all duration-300 ease
+                                      shadow-[0_4px_20px_var(--tw-glow-primary),_0_4px_20px_var(--tw-glow-secondary)]
+                                      hover:-translate-y-1 hover:scale-105 hover:shadow-[0_8px_30px_var(--tw-glow-primary),_0_8px_30px_var(--tw-glow-secondary)]">
+                Get in Touch <i class="fas fa-rocket ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-footer-bg text-white/70 py-16 px-12 border-t-2 border-primary-color">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="col-span-1 md:col-span-2 lg:col-span-1 mb-8 lg:mb-0">
+                    <h5 class="font-bold text-white mb-6 text-xl">About StromeX Tech</h5>
+                    <p class="text-text-muted">StromeX IT Solutions is a leading provider of comprehensive IT services, specializing in end-to-end solutions that empower businesses to thrive in the digital age. From infrastructure to cloud, we are your trusted technology partner.</p>
+                </div>
+                <div class="col-span-1 md:col-span-1 lg:col-span-1 mb-8 md:mb-0">
+                    <h5 class="font-bold text-white mb-6 text-xl">Contact Us</h5>
+                    <p class="mb-2 text-text-muted"><i class="fas fa-map-marker-alt mr-2"></i><strong>Corporate Office:</strong><br>
+                        Flat no 201 Krishna Nagar, Visakhapatnam, 530048, AP
+                    </p>
+                    <p class="mb-2 text-text-muted"><i class="fas fa-phone mr-2"></i><a href="tel:+917996023456" class="text-primary-color no-underline transition-colors duration-300 ease hover:text-secondary-color hover:drop-shadow-[0_0_5px_var(--tw-glow-secondary)]">+91-79960 23456</a></p>
+                    <p class="text-text-muted"><i class="fas fa-envelope mr-2"></i><a href="mailto:Hello@stromex.in" class="text-primary-color no-underline transition-colors duration-300 ease hover:text-secondary-color hover:drop-shadow-[0_0_5px_var(--tw-glow-secondary)]">Hello@stromex.in</a></p>
+                </div>
+                <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                    <h5 class="font-bold text-white mb-6 text-xl">Quick Links</h5>
+                    <ul class="list-none p-0">
+                        <li><a href="/services" class="text-primary-color no-underline transition-colors duration-300 ease hover:text-secondary-color hover:drop-shadow-[0_0_5px_var(--tw-glow-secondary)]">Services</a></li>
+                        <li><a href="/solution" class="text-primary-color no-underline transition-colors duration-300 ease hover:text-secondary-color hover:drop-shadow-[0_0_5px_var(--tw-glow-secondary)]">Solutions</a></li>
+                        <li><a href="/blog" class="text-primary-color no-underline transition-colors duration-300 ease hover:text-secondary-color hover:drop-shadow-[0_0_5px_var(--tw-glow-secondary)]">Blog</a></li>
+                        <li><a href="/contact" class="text-primary-color no-underline transition-colors duration-300 ease hover:text-secondary-color hover:drop-shadow-[0_0_5px_var(--tw-glow-secondary)]">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-border-color pt-6 mt-8 text-white/40 text-center">
+                <p class="mb-0">© 2025 StromeX IT Solutions. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS (Animate on Scroll) JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800, // values from 0 to 3000, with step 50ms
+            once: true, // whether animation should happen only once - while scrolling down
+        });
+    </script>
+</body>
+</html>
